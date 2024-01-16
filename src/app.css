@@ -10,3 +10,7 @@
   .font-custom {
     font-family: 'Montserrat';
   }
+  
+.clip {
+    clip-path: polygon(0 0, 100% 60%, 100% 100%, 0 100%);
+}

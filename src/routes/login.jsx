@@ -1,6 +1,10 @@
 import { A } from "@solidjs/router";
+import { onMount } from "solid-js";
 
 export default function Login() {
+    onMount(() => {
+        document.title = "Login"
+      })
     return (
         <main class="min-h-[90vh] w-full text-center mx-auto text-gray-700 p-4 flex justify-center items-center">
             <div class="flex flex-col w-[30%] justify-center items-center space-y-5">
