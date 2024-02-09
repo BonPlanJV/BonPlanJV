@@ -4,12 +4,12 @@ import 'firebase/compat/auth' // TODO: Add SDKs for Firebase products that you w
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: process.env.firebase.apiKey,
-  authDomain: process.env.firebase.authDomain,
-  projectId: process.env.firebase.projectId,
-  storageBucket: process.env.firebase.storageBucket,
-  messagingSenderId: process.env.firebase.messagingSenderId,
-  appId: process.env.firebase.appId,
+  apiKey: import.meta.env.VITE_FIREBASE_APIKEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTHDOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECTID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGEBUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGINGSENDERID,
+  appId: import.meta.env.VITE_FIREBASE_APPID,
 }
 
 //init firebase app
