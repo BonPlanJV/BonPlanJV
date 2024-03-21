@@ -13,7 +13,7 @@ export default function Nav() {
     <header class="sticky z-10 top-0">
       <nav class={`absolute w-full ${headerActive()}`}>
       <ul class="container flex w-full items-center p-7 text-gray-200">
-        <img src={banner} class="h-[50px]" />
+        <a href="/"><img src={banner} class="h-[50px]" /></a>
         <div class="flex w-full justify-center">
         <li class={`border-b-2 ${active("/hot")} mx-1.5 sm:mx-6`}>
           <a href="/hot">Tendances</a>

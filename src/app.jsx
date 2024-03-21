@@ -11,6 +11,7 @@ export default function App() {
         <>
           <Nav />
           <Suspense>{props.children}</Suspense>
+          <title>BonPlanJV</title>
         </>
     )}
     >

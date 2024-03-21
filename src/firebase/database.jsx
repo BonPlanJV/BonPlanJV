@@ -60,7 +60,6 @@ export const deleteData = path => {
 }
 
 export const getUserByID = async userID => {
-  try {
     const userRef = ref(db, `users/${userID}`)
     const snapshot = await get(userRef)
     if (snapshot.exists()) {
@@ -69,22 +68,15 @@ export const getUserByID = async userID => {
       console.log('User not found')
       return null
     }
-  } catch (error) {
-    console.log(error.message)
-    throw error
-  }
 }
 
-export const getGames = async () => {
-  get(ref(db, 'games'))
-    .then(snapshot => {
-      if (snapshot.exists()) {
-        console.log(snapshot.val());
-      } else {
-        console.log('rien');
-      }
-    })
-    .catch(error => {
-      console.error(error)
-    })
+export const getTagByID = async tagID => {
+  const tagRef = ref(db, `tags/${tagID}`)
+  const snapshot = await get(tagRef)
+  if (snapshot.exists()) {
+    return snapshot.val()
+  } else {
+    console.log('Tag not found')
+    return null
+  }
 }
