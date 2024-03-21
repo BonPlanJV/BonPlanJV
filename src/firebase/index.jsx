@@ -19,5 +19,5 @@ if (firebase.apps.length === 0) {
 }
 
 const auth = firebase.auth()
-const db = getDatabase(app)
+const db = getDatabase(app, "https://bonplanjv0-default-rtdb.europe-west1.firebasedatabase.app")
 export { auth, db }
