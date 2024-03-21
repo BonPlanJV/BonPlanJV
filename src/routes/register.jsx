@@ -10,11 +10,11 @@ export default function Register() {
     })
 
     const userData = {
-        firstname: 'mano',
-        lastname: 'lebg',
-        pseudo: 'la plus grosse bite du monde',
-        email: 'bite@titanesque.com',
-        password: 'grozizi',
+        firstname: 'test',
+        lastname: 'test',
+        pseudo: 'test',
+        email: 'test@test.test',
+        password: 'test',
         isAdmin: false,
         articles: [],
       }
