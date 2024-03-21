@@ -31,18 +31,17 @@ export const handleLogOut = () => {
     })
 }
 
-export const submitLogin = (user, setMessage, navigate) => {
-  const { mail, password } = user
-  auth
-    .signInWithEmailAndPassword(mail, password)
+export const submitLogin = async (user, navigate, setMessage) => {
+  const { email, password } = user
+  return auth
+    .signInWithEmailAndPassword(email, password)
     .then(({ user }) => {
       if (user) {
         navigate('/profile')
       }
     })
     .catch(err => {
-      setMessage(err.message)
-      return
+      setMessage(err.message.split(':')[1])
     })
 }
 
@@ -76,18 +75,16 @@ export const getUserByID = async userID => {
   }
 }
 
-export const getGames = async path => {
-  try {
-    const gameRef = ref(db, `games/${path}`)
-    const snapshot = await get(gameRef)
-    if (snapshot.exists()) {
-      return snapshot.val()
-    } else {
-      console.log('Game not found')
-      return null
-    }
-  } catch (error) {
-    console.log(error.message)
-    throw error
-  }
+export const getGames = async () => {
+  get(ref(db, 'games'))
+    .then(snapshot => {
+      if (snapshot.exists()) {
+        console.log(snapshot.val());
+      } else {
+        console.log('rien');
+      }
+    })
+    .catch(error => {
+      console.error(error)
+    })
 }
