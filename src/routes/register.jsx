@@ -1,18 +1,23 @@
 import { A, useNavigate} from "@solidjs/router";
 import { createSignal, onMount } from "solid-js";
-import { submitLogin } from "~/firebase/database";
+import { submitRegister } from "~/firebase/database";
 
-export default function Login() {
+export default function Register() {
     const navigate = useNavigate()
     const [message, setMessage] = createSignal(null);
     onMount(() => {
-        document.title = "Login"
+        document.title = "Register"
     })
 
-    const state = {
-        email: null,
-        password: null,
-    }
+    const userData = {
+        firstname: 'mano',
+        lastname: 'lebg',
+        pseudo: 'la plus grosse bite du monde',
+        email: 'bite@titanesque.com',
+        password: 'grozizi',
+        isAdmin: false,
+        articles: [],
+      }
 
     return (
         <main class="h-screen min-h-[90vh] w-full text-center mx-auto text-gray-700 p-4 flex justify-center items-center bg-neutral-800">
@@ -21,18 +26,17 @@ export default function Login() {
                 <div class="container flex flex-col w-[80%] justify-center items-center space-y-5">
                     <div class="flex flex-col w-full space-y-2">
                         <input 
-                        oninput= {(e) => {state.email = e.currentTarget.value}}
+                        oninput= {(e) => {userData.email = e.currentTarget.value}}
                         class="border bg-gray-200 rounded-md px-2 py-2" type="text" placeholder="Nom d'utilisateur" />
                     </div>
                     <div class="flex flex-col w-full space-y-2">
                         <input 
-                        oninput= {(e) => {state.password = e.currentTarget.value}}
+                        oninput= {(e) => {userData.lastname = e.currentTarget.value}}
                         class="border bg-gray-200 rounded-md px-2 py-2" type="password" placeholder="Password" />
                     </div>
                     <button 
                     onClick={async () => {
-                        const { email, password } = state
-                        submitLogin({ email, password }, navigate, setMessage)
+                        submitRegister(userData, navigate, setMessage)
                     }}
                     class="bg-gray-200 rounded-md px-2 py-1 w-[150px] hover:bg-gray-300">Login</button>
                     <p>Vous n'avez pas de compte ? Créez en un 
