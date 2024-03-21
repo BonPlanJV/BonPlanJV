@@ -1,11 +1,6 @@
 import { auth, db } from '../firebase'
 import { ref, set, get, push, update, remove } from 'firebase/database'
 
-export const createUser = (path, data) => {
-  const reference = ref(db, path)
-  return set(reference, data)
-}
-
 export const readData = async path => {
   return get(ref(db, path))
     .then(snapshot => {
@@ -39,6 +34,18 @@ export const submitLogin = async (user, navigate, setMessage) => {
       if (user) {
         navigate('/profile')
       }
+    })
+    .catch(err => {
+      setMessage(err.message.split(':')[1])
+    })
+}
+
+export const submitRegister = async (userData, navigate, setMessage) => {
+  const { email, password } = userData
+  auth.createUserWithEmailAndPassword(email, password)
+    .then(({ user }) => {
+      set(ref(db, `users/${user.uid}`), userData)
+      navigate('/profile')
     })
     .catch(err => {
       setMessage(err.message.split(':')[1])
