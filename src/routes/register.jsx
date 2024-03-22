@@ -11,14 +11,14 @@ export default function Register() {
     })
 
     const userData = {
-        firstname: 'test',
-        lastname: 'test',
-        pseudo: 'test',
-        email: 'test@test.test',
-        password: 'test',
-        isAdmin: false,
-        articles: [],
+        pseudo: null,
+        email: null,
       }
+
+    const userSecrets = {
+        email: null,
+        password: null
+    }
 
     return (
         <>
@@ -29,21 +29,26 @@ export default function Register() {
                 <div class="container flex flex-col w-[80%] justify-center items-center space-y-5">
                     <div class="flex flex-col w-full space-y-2">
                         <input 
-                        oninput= {(e) => {userData.email = e.currentTarget.value}}
+                        oninput= {(e) => {userData.pseudo = e.currentTarget.value}}
                         class="border bg-gray-200 rounded-md px-2 py-2" type="text" placeholder="Nom d'utilisateur" />
                     </div>
                     <div class="flex flex-col w-full space-y-2">
                         <input 
-                        oninput= {(e) => {userData.lastname = e.currentTarget.value}}
+                        oninput= {(e) => {userSecrets.email = e.currentTarget.value}}
+                        class="border bg-gray-200 rounded-md px-2 py-2" type="text" placeholder="Email" />
+                    </div>
+                    <div class="flex flex-col w-full space-y-2">
+                        <input 
+                        oninput= {(e) => {userSecrets.password = e.currentTarget.value}}
                         class="border bg-gray-200 rounded-md px-2 py-2" type="password" placeholder="Password" />
                     </div>
                     <button 
                     onClick={async () => {
-                        submitRegister(userData, navigate, setMessage)
+                        submitRegister({ userData, userSecrets }, navigate, setMessage)
                     }}
-                    class="bg-gray-200 rounded-md px-2 py-1 w-[150px] hover:bg-gray-300">Login</button>
-                    <p>Vous n'avez pas de compte ? Créez en un 
-                    <A href={'/register'} class="text-blue-500" >ici</A></p>
+                    class="bg-gray-200 rounded-md px-2 py-1 w-[150px] hover:bg-gray-300">Inscription</button>
+                    <p>Vous avez un compte ? Connectez vous 
+                    <A href={'/login'} class="text-blue-500" >ici</A></p>
                     <p>{ message }</p>
                 </div>
             </div>

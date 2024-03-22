@@ -40,8 +40,9 @@ export const submitLogin = async (user, navigate, setMessage) => {
     })
 }
 
-export const submitRegister = async (userData, navigate, setMessage) => {
-  const { email, password } = userData
+export const submitRegister = async ({userData, userSecrets}, navigate, setMessage) => {
+  const { email, password } = userSecrets
+  userData.email = email
   auth.createUserWithEmailAndPassword(email, password)
     .then(({ user }) => {
       set(ref(db, `users/${user.uid}`), userData)
