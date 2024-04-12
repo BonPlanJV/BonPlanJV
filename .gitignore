@@ -3,6 +3,7 @@ dist
 .firebase
 .solid
 .output
+.vinxi
 .vercel
 .netlify
 netlify
