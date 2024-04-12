@@ -9,13 +9,15 @@ export default function Home() {
   onMount(() => {
     readData("games").then((games) => {
       Promise.all(
-        Object.values(games).map(async (game) => {
+        Object.entries(games).map(async (gameEntries) => {
+          const key = gameEntries[0];
+          const game = gameEntries[1];
           const user = await getUserByID(game.auteur);
           const tags = await Promise.all(game.tags.map(async (tagID) => {
             const tag = await getTagByID(tagID);
             return tag;
           }));
-          return { ...game, auteur: user, tags: tags };
+          return { ...game, auteur: user, tags: tags, key: key};
         })
       ).then((gamesWithUser) => {
         setGamesArray(gamesWithUser);
@@ -36,7 +38,7 @@ export default function Home() {
             <h1 class="text-4xl text-white text-start absolute top-20">Jeux du moment</h1>
             <div class="flex flex-wrap space-y-5">
               {gamesArray().map((game) => (
-                <div class="bg-neutral-900 w-full rounded-xl p-5 flex text-white">
+                <a href="#" class="bg-neutral-900 w-full rounded-xl p-5 flex text-white">
                   <img src={game.image} class="h-[150px] object-cover rounded-xl" />
                   <div class="px-5">
                     <div class="flex flex-col space-y-2">
@@ -65,7 +67,7 @@ export default function Home() {
                       <i class="fa-solid fa-arrow-up-right-from-square ml-2"></i>
                     </button>
                   </div>
-                </div>
+                </a>
               ))}
             </div>
           </div>
