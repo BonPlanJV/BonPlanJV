@@ -31,6 +31,7 @@ export const submitLogin = async (user, navigate, setMessage) => {
   return auth
     .signInWithEmailAndPassword(email, password)
     .then(({ user }) => {
+      sessionStorage.setItem('userID', user.uid)
       if (user) {
         navigate('/profile')
       }
@@ -87,4 +88,18 @@ export const getTagByID = async tagID => {
     console.log('Tag not found')
     return null
   }
+}
+
+export const createVote = async (game, userID, voteType) => {
+  const vote = {
+    gameID: game.key,
+    userID: userID,
+    voteType: voteType
+  }
+
+  const score = voteType ? game.score + 1 : game.score - 1
+  pushData('votes', vote);
+  updateData(`games/${game.key}`, {score: score});
+
+  return;//TODO return status de creation
 }

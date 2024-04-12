@@ -40,7 +40,7 @@ export default function Home() {
                   <div className="px-5">
                     <div className="flex flex-col space-y-2">
                       <div className="flex space-x-2">
-                        <ScoreButton initialScore={game.score} />
+                        <ScoreButton game={game} />
                         <button className="bg-neutral-700 text-white rounded-full px-4 py-1">29<i className="fa-regular fa-comment ml-3"></i></button>
                         {game.tags.map((tag, index) => (
                           <div key={index}>

@@ -1,8 +1,10 @@
 import { useState } from "react";
+import { createVote } from "../firebase/database";
 import PropTypes from "prop-types";
 
 function ScoreButton(props) {
-  const [score, setScore] = useState(props.initialScore);
+  const game = props.game;
+  const [score, setScore] = useState(game.score);
   const [isMinusHovered, setIsMinusHovered] = useState(false);
   const [isPlusHovered, setIsPlusHovered] = useState(false);
 
@@ -20,7 +22,10 @@ function ScoreButton(props) {
         className="text-red-500 flex items-center justify-center"
         onMouseEnter={() => setIsMinusHovered(true)}
         onMouseLeave={() => setIsMinusHovered(false)}
-        onClick={() => setScore(score - 1)}
+        onClick={() => {
+          createVote(game, sessionStorage.getItem("userID"), false);
+          setScore(score() - 1);
+        }}
       >
         -
       </button>
@@ -29,7 +34,10 @@ function ScoreButton(props) {
         className="text-green-500 flex items-center justify-center"
         onMouseEnter={() => setIsPlusHovered(true)}
         onMouseLeave={() => setIsPlusHovered(false)}
-        onClick={() => setScore(score + 1)}
+        onClick={() => {
+          createVote(game, sessionStorage.getItem("userID"), true);
+          setScore(score() + 1);
+        }}
       >
         +
       </button>
@@ -38,7 +46,7 @@ function ScoreButton(props) {
 }
 
 ScoreButton.propTypes = {
-  initialScore: PropTypes.number.isRequired,
+  game: PropTypes.number.isRequired,
 };
 
 export default ScoreButton;
