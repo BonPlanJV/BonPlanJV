@@ -1,6 +1,7 @@
 import { readData, getUserByID, getTagByID } from "../firebase/database.jsx";
 import ScoreButton from "../components/ScoreButton";
 import { useState, useEffect } from "react";
+import background from "../assets/background.jpeg"
 
 export default function Home() {
   const [gamesArray, setGamesArray] = useState([]);
@@ -27,7 +28,7 @@ export default function Home() {
 
   return (
     <main className="h-screen w-full text-center mx-auto text-gray-700">
-      <div className="absolute z-1 h-full w-full bg-bg bg-center bg-cover"></div>
+      <img className="absolute z-1 h-full w-full bg-center bg-cover" src={background} alt="" />
       <div className="h-[60vh]"></div>
       <div className="absolute h-screen w-full">
         <div className="h-[15vh] clip w-full bg-neutral-800"></div>
