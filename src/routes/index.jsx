@@ -1,11 +1,11 @@
 import { readData, getUserByID, getTagByID } from "../firebase/database.jsx";
-import Nav from "~/components/Nav.jsx";
 import ScoreButton from "../components/ScoreButton";
+import { useState, useEffect } from "react";
 
 export default function Home() {
 
-  const [gamesArray, setGamesArray] = createSignal([]);
-  onMount(() => {
+  const [gamesArray, setGamesArray] = useState([]);
+  useEffect(() => {
     readData("games").then((games) => {
       Promise.all(
         Object.entries(games).map(async (gameEntries) => {
@@ -25,8 +25,6 @@ export default function Home() {
   }, []);
 
   return (
-    <>
-    <Nav />
     <main className="h-screen w-full text-center mx-auto text-gray-700">
       <div className="absolute z-1 h-full w-full bg-bg bg-center bg-cover"></div>
       <div className="h-[60vh]"></div>
@@ -36,16 +34,16 @@ export default function Home() {
           <div className="w-[90%] h-full space-y-10">
             <h1 className="text-4xl text-white text-start absolute top-20">Jeux du moment</h1>
             <div className="flex flex-wrap space-y-5">
-              {gamesArray().map((game) => (
-                <a href="#" className="bg-neutral-900 w-full rounded-xl p-5 flex text-white">
+              {gamesArray.map((game) => (
+                <a href="#" key={game.key} className="bg-neutral-900 w-full rounded-xl p-5 flex text-white">
                   <img src={game.image} className="h-[150px] object-cover rounded-xl" />
                   <div className="px-5">
                     <div className="flex flex-col space-y-2">
                       <div className="flex space-x-2">
                         <ScoreButton initialScore={game.score} />
                         <button className="bg-neutral-700 text-white rounded-full px-4 py-1">29<i className="fa-regular fa-comment ml-3"></i></button>
-                        {game.tags.map((tag) => (
-                          <div>
+                        {game.tags.map((tag, index) => (
+                          <div key={index}>
                             <p className="min-w-[80px] text-orange-500 px-3 py-1 bg-neutral-700 rounded-full">{tag.name}</p>
                           </div>
                         ))}
@@ -74,6 +72,5 @@ export default function Home() {
       </div>
       <h1>Bienvenue sur BonPlanJV</h1>
     </main>
-    </>
   );
 }

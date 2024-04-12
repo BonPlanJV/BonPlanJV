@@ -1,15 +1,18 @@
-import banner from '~/assets/Banner.png'
+import { useState } from 'react';
+import { useWindowScroll } from 'react-use';
+import banner from '../assets/Banner.png'
 
 export default function Nav() {
-  const location = useLocation();
-  const headerActive = () => useWindowScrollPosition().y > 10 ? "backdrop-blur-xl backdrop-brightness-50 backdrop-contrast-125" : "bg-transparent"
+  const location = useState();
+  const { y } = useWindowScroll();
+  const headerActive = y > 10 ? "backdrop-blur-xl backdrop-brightness-50 backdrop-contrast-125" : "bg-transparent";
   const active = (path) =>
     path == location.pathname
       ? "border-neutral-200"
       : "border-transparent hover:border-sky-600";
   return (
     <header className="sticky z-10 top-0">
-      <nav className={`absolute w-full ${headerActive()}`}>
+      <nav className={`absolute w-full ${headerActive}`}>
       <ul className="container flex w-full items-center p-7 text-gray-200">
         <a href="/"><img src={banner} className="h-[50px]" /></a>
         <div className="flex w-full justify-center">

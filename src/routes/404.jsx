@@ -16,13 +16,13 @@ export default function NotFound() {
         to learn how to build Solid apps.
       </p>
       <p className="my-4">
-        <A href="/" className="text-sky-600 hover:underline">
+        <a href="/" className="text-sky-600 hover:underline">
           Home
-        </A>
+        </a>
         {" - "}
-        <A href="/about" className="text-sky-600 hover:underline">
+        <a href="/about" className="text-sky-600 hover:underline">
           About Page
-        </A>
+        </a>
       </p>
     </main>
   );
