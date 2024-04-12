@@ -1,6 +1,5 @@
 import { onMount, createSignal } from "solid-js";
 import { readData, getUserByID, getTagByID } from "../firebase/database.jsx";
-import Nav from "~/components/Nav.jsx";
 import ScoreButton from "../components/ScoreButton";
 
 export default function Home() {
@@ -26,8 +25,6 @@ export default function Home() {
   }, []);
 
   return (
-    <>
-    <Nav />
     <main class="h-screen w-full text-center mx-auto text-gray-700">
       <div class="absolute z-1 h-full w-full bg-bg bg-center bg-cover"></div>
       <div class="h-[60vh]"></div>
@@ -75,6 +72,5 @@ export default function Home() {
       </div>
       <h1>Bienvenue sur BonPlanJV</h1>
     </main>
-    </>
   );
 }

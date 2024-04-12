@@ -1,5 +1,4 @@
-import { createHandler } from "@solidjs/start/entry";
-import { StartServer } from "@solidjs/start/server";
+import { createHandler, StartServer } from "@solidjs/start/server";
 export default createHandler(() => (
   <StartServer
     document={({ assets, children, scripts }) => (
@@ -9,6 +8,7 @@ export default createHandler(() => (
           <meta name="viewport" content="width=device-width, initial-scale=1" />
           <link rel="icon" href="/favicon.ico" />
           <script src="https://kit.fontawesome.com/811538d180.js" crossorigin="anonymous"></script>
+          <title>BonPlanJV</title>
           {assets}
         </head>
         <body>

@@ -1,6 +1,5 @@
 import { A, useNavigate} from "@solidjs/router";
 import { createSignal, onMount } from "solid-js";
-import Nav from "~/components/Nav";
 import { submitLogin } from "~/firebase/database";
 
 export default function Login() {
@@ -16,8 +15,6 @@ export default function Login() {
     }
 
     return (
-        <>
-            <Nav />
             <main class="h-screen min-h-[90vh] w-full text-center mx-auto text-gray-700 p-4 flex justify-center items-center bg-neutral-800">
             <div class="flex flex-col w-[30%] justify-center items-center space-y-5">
                 <h1>Connexion / Login</h1>
@@ -44,6 +41,5 @@ export default function Login() {
                 </div>
             </div>
         </main>
-        </>
     );
 }
