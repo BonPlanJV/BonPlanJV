@@ -14,7 +14,7 @@ export default function Nav() {
     <header className="sticky z-10 top-0">
       <nav className={`absolute w-full ${headerActive}`}>
       <ul className="container flex w-full items-center p-7 text-gray-200">
-        <a href="/"><img src={banner} className="h-[50px]" /></a>
+        <a href="/"><img src={banner} className="h-14" /></a>
         <div className="flex w-full justify-center">
         <li className={`border-b-2 ${active("/hot")} mx-1.5 sm:mx-6`}>
           <a href="/hot">Tendances</a>

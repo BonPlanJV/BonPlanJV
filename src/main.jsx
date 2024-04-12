@@ -7,6 +7,7 @@ import Home from "./routes/index";
 import About from "./routes/about";
 import Login from "./routes/login";
 import Register from "./routes/register";
+import Games from "./routes/games";
 import "./index.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
@@ -18,6 +19,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route path="/about" element={<About />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/games/*" element={<Games />} />
         <Route element={<NotFound />} />
       </Routes>
     </Router>
