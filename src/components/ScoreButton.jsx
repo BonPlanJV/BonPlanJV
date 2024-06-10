@@ -1,19 +1,40 @@
 import { useState } from "react";
-import { createVote } from "../firebase/database";
-import PropTypes from "prop-types";
+import { createVote, getUserVote } from "../firebase/database";
+import { useNavigate } from "react-router-dom"
 
 function ScoreButton(props) {
   const game = props.game;
   const [score, setScore] = useState(game.score);
+  const [userVote, setUserVote] = useState(false);
   const [isMinusHovered, setIsMinusHovered] = useState(false);
   const [isPlusHovered, setIsPlusHovered] = useState(false);
+  const navigate = useNavigate()
+
+  getUserVote(game, sessionStorage.getItem("userID")).then((vote) => {
+    setUserVote(vote);
+  });
+
+  const addVote = (game, voteType) => {
+    if (sessionStorage.getItem("userID") === null) {
+      navigate('/login')
+      return;
+    }
+    
+    if (userVote) {
+      return;
+    }
+
+    createVote(game, sessionStorage.getItem("userID"), voteType).then((res) => {
+        setScore(score + (voteType ? 1 : -1));
+    });
+  }
 
   return (
     <div
       className={`bg-neutral-700 font-bold text-white text-center rounded-full flex justify-between items-center px-3 border-2 ${
-        isMinusHovered
+        isMinusHovered || userVote && userVote.voteType === false
           ? "border-red-500"
-          : isPlusHovered
+          : isPlusHovered || userVote && userVote.voteType === true
             ? "border-green-500"
             : "border-neutral-700"
       }`}
@@ -23,8 +44,7 @@ function ScoreButton(props) {
         onMouseEnter={() => setIsMinusHovered(true)}
         onMouseLeave={() => setIsMinusHovered(false)}
         onClick={() => {
-          createVote(game, sessionStorage.getItem("userID"), false);
-          setScore(score() - 1);
+            addVote(game, false);
         }}
       >
         -
@@ -35,8 +55,7 @@ function ScoreButton(props) {
         onMouseEnter={() => setIsPlusHovered(true)}
         onMouseLeave={() => setIsPlusHovered(false)}
         onClick={() => {
-          createVote(game, sessionStorage.getItem("userID"), true);
-          setScore(score() + 1);
+            addVote(game, true);
         }}
       >
         +
@@ -44,9 +63,5 @@ function ScoreButton(props) {
     </div>
   );
 }
-
-ScoreButton.propTypes = {
-  game: PropTypes.number.isRequired,
-};
 
 export default ScoreButton;

@@ -1,5 +1,5 @@
 import { auth, db } from '../firebase'
-import { ref, set, get, push, update, remove } from 'firebase/database'
+import { ref, set, get, push, update, remove, orderByChild, query, equalTo } from 'firebase/database'
 
 export const readData = async path => {
   return get(ref(db, path))
@@ -101,7 +101,30 @@ export const createVote = async (game, userID, voteType) => {
 
   const score = voteType ? game.score + 1 : game.score - 1
   pushData('votes', vote);
+  console.log(voteType);
+  console.log(score);
   updateData(`games/${game.key}`, {score: score});
 
-  return;//TODO return status de creation
+  return true;
+}
+
+export const getUserVote = async (game, userID) => {
+  if (userID === null) {
+    return null;
+  }
+
+  const votesRef = ref(db, 'votes');
+  const userVotesQuery = query(votesRef, orderByChild('userID'), equalTo(userID));
+
+  const snapshot = await get(userVotesQuery);
+  if (snapshot.exists()) {
+    const votes = snapshot.val();
+    for (let key in votes) {
+      if (votes[key].gameID === game.key) {
+        return votes[key];
+      }
+    }
+  } else {
+    return null;
+  }
 }
