@@ -1,10 +1,18 @@
-import { readData, getUserByID, getTagByID, getCommentsByGameID } from "../firebase/database.jsx";
+import {
+  readData,
+  getUserByID,
+  getTagByID,
+  getCommentsByGameID,
+  pushData,
+} from "../firebase/database.jsx";
 import ScoreButton from "../components/ScoreButton";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 export default function Games() {
   const { key } = useParams();
+
+  // Game
   const [game, setGame] = useState(null);
   useEffect(() => {
     readData(`games/${key}`).then(async (game) => {
@@ -19,7 +27,9 @@ export default function Games() {
     });
   }, [key]);
 
+  // Comments
   const [comments, setComments] = useState([]);
+  const [refreshComments, setRefreshComments] = useState(false);
   useEffect(() => {
     getCommentsByGameID(key).then((commentsEntries) => {
       if (commentsEntries) {
@@ -31,14 +41,17 @@ export default function Games() {
             return { ...comment, auteur: user, key: key };
           })
         ).then((commentsWithKey) => {
+          commentsWithKey.sort((a, b) => new Date(b.date) - new Date(a.date));
           setComments(commentsWithKey);
+          setRefreshComments(false);
         });
       } else {
         setComments([]);
       }
     });
-  }, [key]);
+  }, [key, refreshComments]);
 
+  // Copy promo code
   const [isCopied, setIsCopied] = useState(false);
   const handleCopy = () => {
     navigator.clipboard.writeText(game.promoCode);
@@ -50,6 +63,45 @@ export default function Games() {
       return () => clearTimeout(timer);
     }
   }, [isCopied]);
+
+  // Post comment
+  const [comment, setComment] = useState("");
+  const handleCommentChange = (event) => {
+    setComment(event.target.value);
+  };
+  const handleCommentSubmit = async (event) => {
+    event.preventDefault();
+
+    const date = new Date();
+    const commentData = {
+      gameID: key,
+      auteur: sessionStorage.getItem("userID"),
+      message: comment,
+      date: date.toISOString(),
+    };
+    pushData("commentaires", commentData);
+    setComment("");
+    setRefreshComments(true);
+  };
+
+  function formatDate(dateString) {
+    const commentDate = new Date(dateString);
+    const now = new Date();
+    const diffMs = now - commentDate; // différence en millisecondes
+    const diffSecs = Math.floor(diffMs / 1000); // convertir en secondes
+    const diffMins = Math.floor(diffSecs / 60); // convertir en minutes
+    const diffHrs = Math.floor(diffMins / 60); // convertir en heures
+  
+    if (diffMins < 60) {
+      return `Il y a ${diffMins}m`;
+    } else if (diffHrs < 24) {
+      return `Il y a ${diffHrs}h`;
+    } else if (now.getFullYear() === commentDate.getFullYear()) {
+      return commentDate.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long' });
+    } else {
+      return commentDate.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+    }
+  }
 
   return (
     <main className="text-center mx-auto text-gray-700 p-4 bg-neutral-800 h-full w-full text-white">
@@ -75,7 +127,8 @@ export default function Games() {
                       Partager
                     </button>
                     <button className="rounded-full px-2 hover:text-orange-500">
-                      <i className="fa-regular fa-comment px-1"></i> {comments.length}
+                      <i className="fa-regular fa-comment px-1"></i>{" "}
+                      {comments.length}
                     </button>
                   </div>
                 </div>
@@ -171,8 +224,13 @@ export default function Games() {
                   id="comment"
                   className="w-full h-24 bg-neutral-800 text-gray-300 rounded-xl p-4"
                   placeholder="Votre commentaire..."
+                  value={comment}
+                  onChange={handleCommentChange}
                 ></textarea>
-                <button className="bg-orange-500 hover:bg-orange-600 text-white rounded-full px-4 py-2 transition-colors duration-200">
+                <button
+                  className="bg-orange-500 hover:bg-orange-600 text-white rounded-full px-4 py-2 transition-colors duration-200"
+                  onClick={handleCommentSubmit}
+                >
                   Envoyer
                 </button>
               </div>
@@ -184,12 +242,22 @@ export default function Games() {
                 </p>
               </div>
             )}
-            {comments && comments.map((comment) => (
-              <div key={comment.key} className="bg-neutral-800 rounded-xl p-4 mt-4">
-                <p className="text-orange-500 text-left">{comment.auteur.pseudo} <span className="text-gray-400 text-sm"> • {comment.date}</span></p>
-                <p className="text-gray-300 text-left">{comment.message}</p>
-              </div>
-            ))} 
+            {comments &&
+              comments.map((comment) => (
+                <div
+                  key={comment.key}
+                  className="bg-neutral-800 rounded-xl p-4 mt-4"
+                >
+                  <p className="text-orange-500 text-left">
+                    {comment.auteur.pseudo}{" "}
+                    <span className="text-gray-400 text-sm">
+                      {" "}
+                      • {formatDate(comment.date)}
+                    </span>
+                  </p>
+                  <p className="text-gray-300 text-left">{comment.message}</p>
+                </div>
+              ))}
           </div>
         </>
       )}
