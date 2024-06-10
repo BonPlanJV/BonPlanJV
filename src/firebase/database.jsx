@@ -41,12 +41,14 @@ export const submitLogin = async (user, navigate, setMessage) => {
     })
 }
 
-export const submitRegister = async ({userData, userSecrets}, navigate, setMessage) => {
-  const { email, password } = userSecrets
-  userData.email = email
+export const submitRegister = async ({ email, password }, navigate, setMessage) => {
+  const userData = {
+    email
+  }
   auth.createUserWithEmailAndPassword(email, password)
     .then(({ user }) => {
       set(ref(db, `users/${user.uid}`), userData)
+      submitLogin({ email, password}, navigate, setMessage)
       navigate('/profile')
     })
     .catch(err => {

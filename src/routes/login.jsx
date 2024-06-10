@@ -32,7 +32,7 @@ export default function Login() {
       </header>
       <section className="w-full h-full flex justify-start items-center bg-neutral-800">
         <div className="absolute z-10 flex w-full xl:w-[50%] h-full text-white p-5 justify-center items-center space-y-5 bg-neutral-800">
-          <div className="flex flex-col items-start w-[80%] md:w-[60%]">
+          <div className="flex flex-col items-start w-[80%] md:w-[70%]">
             <h1 className="text-xl font-semibold">Log in</h1>
             <hr className="w-full flex my-10" />
             <form className="container flex flex-col w-full justify-center items-center space-y-10 text-neutral-800">
