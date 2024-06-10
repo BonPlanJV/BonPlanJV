@@ -11,6 +11,7 @@ export default function Login() {
   const [userId, setUserId] = useState(undefined);
   const [checked, setChecked] = useState(false);
   const [form, setForm] = useState({
+    username: null,
     email: null,
     password: null,
     confirmpassword: null,
@@ -25,11 +26,12 @@ export default function Login() {
     document.title = "Login";
   }, [userId, navigate]);
 
-  const register = ({ email, password, confirmpassword, terms }) => {
+  const register = ({ username, email, password, confirmpassword, terms }) => {
     setMessage('')
-    if(password != confirmpassword)  return setMessage('Passwords dont match.')
+    if(!username) return setMessage('You should provide a username.')
+    if(password != confirmpassword) return setMessage('Passwords dont match.')
     if(!terms) return setMessage('You should accept the Terms & Policy.')
-    submitRegister({ email, password }, navigate, setMessage)
+    submitRegister({ username, email, password }, navigate, setMessage)
     setForm(form)
   }
   
@@ -47,6 +49,17 @@ export default function Login() {
             <h1 className="text-xl font-semibold">Register</h1>
             <hr className="w-full flex my-10" />
             <form className="container flex flex-col w-full justify-center items-center space-y-10 text-neutral-800">
+            <div className="flex flex-col w-full space-y-2">
+                <input
+                  onInput={(e) => {
+                    form.username = e.currentTarget.value;
+                  }}
+                  className="border bg-gray-200 outline outline-3 outline-orange-500 outline-offset-0	rounded-md px-2 py-3"
+                  type="text"
+                  placeholder="Username"
+                  autoComplete="username"
+                />
+              </div>
               <div className="flex flex-col w-full space-y-2">
                 <input
                   onInput={(e) => {
