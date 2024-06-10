@@ -32,9 +32,9 @@ function ScoreButton(props) {
   return (
     <div
       className={`bg-neutral-700 font-bold text-white text-center rounded-full flex justify-between items-center px-3 border-2 ${
-        isMinusHovered || userVote && userVote.voteType === false
+        (!userVote && isMinusHovered) || userVote && userVote.voteType === false
           ? "border-red-500"
-          : isPlusHovered || userVote && userVote.voteType === true
+          : (!userVote && isPlusHovered) || userVote && userVote.voteType === true
             ? "border-green-500"
             : "border-neutral-700"
       }`}
@@ -43,7 +43,9 @@ function ScoreButton(props) {
         className="text-red-500 flex items-center justify-center"
         onMouseEnter={() => setIsMinusHovered(true)}
         onMouseLeave={() => setIsMinusHovered(false)}
-        onClick={() => {
+        onClick={(event) => {
+            event.stopPropagation();
+            event.preventDefault();
             addVote(game, false);
         }}
       >
@@ -54,7 +56,9 @@ function ScoreButton(props) {
         className="text-green-500 flex items-center justify-center"
         onMouseEnter={() => setIsPlusHovered(true)}
         onMouseLeave={() => setIsPlusHovered(false)}
-        onClick={() => {
+        onClick={(event) => {
+            event.stopPropagation();
+            event.preventDefault(); 
             addVote(game, true);
         }}
       >
