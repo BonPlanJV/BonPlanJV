@@ -68,7 +68,7 @@ export default function Home() {
                         <p className="text-orange-500">{game.prix} €</p>
                       </div>
                       <p className="text-wrap text-start text-gray-300">
-                        {game.description}
+                        {game.description.substring(0, 250) + '...'}
                       </p>
                     </div>
                   </div>
