@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Nav";
 import NotFound from "./routes/404";
-import Home from "./routes/index";
+import Trending from "./routes/trending";
 import About from "./routes/about";
 import Login from "./routes/login";
 import Profile from "./routes/profile";
@@ -17,7 +17,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <Router>
       <Navbar />
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Trending />} />
         <Route path="/about" element={<About />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/login" element={<Login />} />

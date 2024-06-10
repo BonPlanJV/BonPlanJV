@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import background from "../assets/background.jpeg"
 import Game from "../components/Game.jsx";
 
-export default function Home() {
+export default function Trending() {
   const [gamesArray, setGamesArray] = useState([]);
   useEffect(() => {
     readData("games").then((games) => {
