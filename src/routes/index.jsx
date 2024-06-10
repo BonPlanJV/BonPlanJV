@@ -28,10 +28,10 @@ export default function Home() {
 
   return (
     <main className="h-screen w-full text-center mx-auto text-gray-700">
-      <img className="absolute z-1 h-full w-full bg-center bg-cover" src={background} alt="" />
-      <div className="h-[60vh]"></div>
+      <img className="fixed overflow overflow-scroll z-1 h-full w-full bg-center bg-cover" src={background} alt="" />
+      <div className="highlights-container"></div>
       <div className="absolute h-screen w-full">
-        <div className="h-[15vh] clip w-full bg-neutral-800"></div>
+        <div className="h-[15vh] w-full bg-neutral-800"></div>
         <div className="h-full w-full bg-neutral-800 p-5 flex justify-center">
           <div className="w-[90%] h-full space-y-10">
             <h1 className="text-4xl text-white text-start absolute top-20">

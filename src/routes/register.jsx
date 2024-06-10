@@ -23,7 +23,7 @@ export default function Login() {
   useEffect(() => {
     setUserId(sessionStorage.getItem("userID"))
     if (userId) navigate('/profile')
-    document.title = "Login";
+    document.title = "Register";
   }, [userId, navigate]);
 
   const register = ({ username, email, password, confirmpassword, terms }) => {

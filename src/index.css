@@ -12,7 +12,7 @@
   }
   
 .clip {
-    clip-path: polygon(0 0, 100% 60%, 100% 100%, 0 100%);
+  z-index: 1;
 }
 
 ::-webkit-scrollbar {
@@ -35,4 +35,31 @@
 .thin-strike {
   text-decoration: line-through;
   text-decoration-thickness: 1px;
+}
+.highlights-container {
+  background-color: var(--color-very-dark);
+  background-position: 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  height: 60vh;
+  justify-content: center;
+  margin-left: -30px;
+  margin-right: -30px;
+  max-height: 620px;
+  min-height: 550px;
+  overflow: hidden;
+  padding: 30px;
+  position: relative;
+}
+
+.highlights-container::after {
+  background-color: rgba(38, 38, 38, 1);
+  bottom: -1px;
+  clip-path: polygon(0 100%,100% 100%,0 0);
+  content: "";
+  padding: 30px;
+  position: absolute;
+  width: 100%;
+  z-index: 1;
 }
