@@ -23,7 +23,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route path="/login" element={<Login />} />
         <Route path="/logout" element={<Logout />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/games/*" element={<Games />} />
+        <Route path="/games/:key" element={<Games />} />
         <Route element={<NotFound />} />
       </Routes>
     </Router>

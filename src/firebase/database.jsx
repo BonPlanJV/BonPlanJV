@@ -92,6 +92,18 @@ export const getTagByID = async tagID => {
   }
 }
 
+export const getCommentsByGameID = async gameID => {
+  const commentsRef = ref(db, 'commentaires')
+  const commentsQuery = query(commentsRef, orderByChild('gameID'), equalTo(gameID))
+  const snapshot = await get(commentsQuery)
+  if (snapshot.exists()) {
+    return snapshot.val()
+  } else {
+    console.log('No comments found')
+    return null
+  }
+}
+
 export const createVote = async (game, userID, voteType) => {
   const vote = {
     gameID: game.key,
@@ -101,8 +113,6 @@ export const createVote = async (game, userID, voteType) => {
 
   const score = voteType ? game.score + 1 : game.score - 1
   pushData('votes', vote);
-  console.log(voteType);
-  console.log(score);
   updateData(`games/${game.key}`, {score: score});
 
   return true;

@@ -31,3 +31,8 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+
+.thin-strike {
+  text-decoration: line-through;
+  text-decoration-thickness: 1px;
+}
