@@ -28,16 +28,15 @@ export const handleLogOut = () => {
 
 export const submitLogin = async (user, navigate, setMessage) => {
   const { email, password } = user
-  return auth
+  auth
     .signInWithEmailAndPassword(email, password)
     .then(({ user }) => {
       sessionStorage.setItem('userID', user.uid)
-      if (user) {
-        navigate('/profile')
-      }
+      document.dispatchEvent(new CustomEvent("auth", {  detail: { loggedIn: true } }))
+      if (user) navigate('/profile')
     })
-    .catch(err => {
-      setMessage(err.message.split(':')[1])
+    .catch(({ message }) => {
+      setMessage(message.split(":")[1])
     })
 }
 

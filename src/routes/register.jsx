@@ -5,9 +5,12 @@ import { useNavigate } from "react-router-dom";
 export default function Register() {
   const navigate = useNavigate();
   const [message, setMessage] = useState(null);
+  const [userId, setUserId] = useState(null);
   useEffect(() => {
+    setUserId(sessionStorage.getItem("userID"))
+    if(userId) navigate('/profile')
     document.title = "Register";
-  });
+  }, [userId, navigate]);
 
   const userData = {
     pseudo: null,
