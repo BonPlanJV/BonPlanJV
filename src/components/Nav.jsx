@@ -34,8 +34,8 @@ export default function Nav() {
             <li className={`border-b-2 ${active("/news")} mx-1.5 sm:mx-6`}>
               <Link to={'/news'}>Nouveautés</Link>
             </li>
-            <li className={`border-b-2 ${active("/")} mx-1.5 sm:mx-6`}>
-              <Link to={'/'}>Commentés</Link>
+            <li className={`border-b-2 ${active("/comments")} mx-1.5 sm:mx-6`}>
+              <Link to={'/comments'}>Commentés</Link>
             </li>
             <li className={`border-b-2 ${active("/")} mx-1.5 sm:mx-6`}>
               <Link to={'/'}>Favoris</Link>

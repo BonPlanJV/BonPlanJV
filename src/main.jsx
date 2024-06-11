@@ -5,6 +5,7 @@ import Navbar from "./components/Nav";
 import NotFound from "./routes/404";
 import Trending from "./routes/trending";
 import News from "./routes/news";
+import Comments from "./routes/comments";
 import About from "./routes/about";
 import Login from "./routes/login";
 import Profile from "./routes/profile";
@@ -20,6 +21,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <Routes>
         <Route path="/" element={<Trending />} />
         <Route path="/news" element={<News />} />
+        <Route path="/comments" element={<Comments />} />
         <Route path="/about" element={<About />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/login" element={<Login />} />
