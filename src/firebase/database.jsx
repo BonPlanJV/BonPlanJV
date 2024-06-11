@@ -98,10 +98,11 @@ export const getCommentsByGameID = async gameID => {
   const commentsQuery = query(commentsRef, orderByChild('gameID'), equalTo(gameID))
   const snapshot = await get(commentsQuery)
   if (snapshot.exists()) {
-    return snapshot.val()
+    const commentsObject = snapshot.val()
+    const commentsArray = Object.keys(commentsObject).map(key => commentsObject[key])
+    return commentsArray
   } else {
-    console.log('No comments found')
-    return null
+    return []
   }
 }
 
