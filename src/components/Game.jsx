@@ -21,7 +21,9 @@ function Game(props) {
 
   // Copy promo code
   const [isCopied, setIsCopied] = useState(false);
-  const handleCopy = () => {
+  const handleCopy = (event) => {
+    event.stopPropagation();
+    event.preventDefault();
     navigator.clipboard.writeText(game.promoCode);
     setIsCopied(true);
   };
@@ -102,7 +104,13 @@ function Game(props) {
             </div>
           </div>
         )}
-        <button className="bg-orange-500 hover:bg-orange-600 text-white rounded-full px-4 py-2 transition-colors duration-200">
+        <button
+          className="bg-orange-500 hover:bg-orange-600 text-white rounded-full px-4 py-2 transition-colors duration-200"
+          onClick={(event) => {
+            event.stopPropagation();
+            event.preventDefault();
+          }}
+        >
           Voir le jeu
           <i className="fa-solid fa-arrow-up-right-from-square ml-2"></i>
         </button>
