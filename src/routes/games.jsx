@@ -1,5 +1,6 @@
 import {
   readData,
+  updateData,
   getUserByID,
   getTagByID,
   getCommentsByGameID,
@@ -80,6 +81,8 @@ export default function Games() {
       date: date.toISOString(),
     };
     pushData("commentaires", commentData);
+    game.nombreCommentaires += 1;
+    updateData(`games/${key}`, {nombreCommentaires: game.nombreCommentaires });
     setComment("");
     setRefreshComments(true);
   };
