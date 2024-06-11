@@ -28,7 +28,7 @@ export default function Trending() {
 
   return (
     <main className="h-screen w-full text-center mx-auto text-gray-700">
-      <img className="fixed overflow overflow-scroll z-1 h-full w-full bg-center bg-cover" src={background} alt="" />
+      <img className="absolute z-1 h-full w-full bg-center bg-cover" src={background} alt="" />
       <div className="highlights-container"></div>
       <div className="absolute h-screen w-full">
         <div className="h-[15vh] w-full bg-neutral-800"></div>

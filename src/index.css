@@ -42,11 +42,23 @@
   background-repeat: no-repeat;
   background-size: cover;
   display: flex;
-  height: 60vh;
+  height: 70vh;
   justify-content: center;
   overflow: hidden;
   padding: 30px;
   position: relative;
+}
+
+.svg-orange-500 {
+  filter: invert(0.5) sepia(1) saturate(5) hue-rotate(-45deg);
+}
+
+.bpjv-color:hover {
+  color: #ff6364;
+}
+
+.bg-bpjv {
+  background-color: #ff6364;
 }
 
 .highlights-container::after {

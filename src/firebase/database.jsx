@@ -33,6 +33,7 @@ export const submitLogin = async (user, navigate, setMessage) => {
     .signInWithEmailAndPassword(email, password)
     .then(({ user }) => {
       sessionStorage.setItem('userID', user.uid)
+      localStorage.setItem('user', JSON.stringify(user))
       document.dispatchEvent(new CustomEvent("auth", {  detail: { loggedIn: true } }))
       if (user) navigate('/profile')
     })
