@@ -2,7 +2,6 @@ import ScoreButton from "../components/ScoreButton";
 
 function Game(props) {
   const game = props.game;
-  console.log(game);
   return (
     <a
       href={`/games/${game.key}`}

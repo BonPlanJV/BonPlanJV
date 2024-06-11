@@ -21,6 +21,7 @@ export default function News() {
           return { ...game, auteur: user, tags: tags, key: key };
         })
       ).then((gamesWithUser) => {
+        gamesWithUser.sort((a, b) => new Date(b.dateCreation) - new Date(a.dateCreation));
         setGamesArray(gamesWithUser);
       });
     });
