@@ -36,7 +36,7 @@ export default function News() {
         <div className="h-full w-full bg-neutral-800 p-5 flex justify-center">
           <div className="w-[90%] h-full space-y-10">
             <h1 className="text-4xl text-white text-start absolute top-20">
-              Nouveautés (TODO)
+              Nouveautés
             </h1>
             <div className="flex flex-wrap space-y-5">
               {gamesArray.map((game) => (

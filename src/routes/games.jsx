@@ -24,7 +24,7 @@ export default function Games() {
           return tag;
         })
       );
-      setGame({ ...game, auteur: user, tags: tags });
+      setGame({ ...game, auteur: user, tags: tags, key: key});
     });
   }, [key]);
 
@@ -122,7 +122,7 @@ export default function Games() {
               <div className="flex flex-col w-full">
                 <div className="flex justify-between">
                   <div className="">
-                    <ScoreButton game={game} />
+                    <ScoreButton key={game.key} game={game} />
                   </div>
                   <div>
                     <button className="rounded-full px-2 hover:text-orange-500">
