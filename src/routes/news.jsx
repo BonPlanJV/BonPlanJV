@@ -40,7 +40,7 @@ export default function News() {
             </h1>
             <div className="flex flex-wrap space-y-5">
               {gamesArray.map((game) => (
-                <Game game={game} />  
+                <Game key={game.key} game={game} />  
               ))}
             </div>
           </div>
