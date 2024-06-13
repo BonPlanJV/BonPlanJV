@@ -17,7 +17,7 @@ export default function Games() {
   const [game, setGame] = useState(null);
   useEffect(() => {
     readData(`games/${key}`).then(async (game) => {
-      const user = await getUserByID(game.auteur);
+      const user = await getUserByID(game?.auteur);
       const tags = await Promise.all(
         game.tags.map(async (tagID) => {
           const tag = await getTagByID(tagID);
@@ -55,7 +55,7 @@ export default function Games() {
   // Copy promo code
   const [isCopied, setIsCopied] = useState(false);
   const handleCopy = () => {
-    navigator.clipboard.writeText(game.promoCode);
+    navigator.clipboard.writeText(game?.promoCode);
     setIsCopied(true);
   };
   useEffect(() => {
@@ -82,7 +82,7 @@ export default function Games() {
     };
     pushData("commentaires", commentData);
     game.nombreCommentaires += 1;
-    updateData(`games/${key}`, {nombreCommentaires: game.nombreCommentaires });
+    updateData(`games/${key}`, {nombreCommentaires: game?.nombreCommentaires });
     setComment("");
     setRefreshComments(true);
   };
@@ -136,9 +136,9 @@ export default function Games() {
                   </div>
                 </div>
                 <div className="flex flex-col space-y-2 text-left my-6 mx-4">
-                  <h1 className="text-3xl">{game.titre}</h1>
+                  <h1 className="text-3xl">{game?.titre}</h1>
                   <div className="flex space-x-2 py-6 items-end">
-                    <h2 className="text-2xl text-orange-500">{game.prix} €</h2>
+                    <h2 className="text-2xl text-orange-500">{game?.prix} €</h2>
                     {game.prixInit && (
                       <>
                         <h3 className="text-xl thin-strike italic text-gray-400">
@@ -150,7 +150,7 @@ export default function Games() {
                         >
                           -
                           {Math.round(
-                            ((game.prixInit - game.prix) / game.prixInit) * 100
+                            ((game?.prixInit - game?.prix) / game?.prixInit) * 100
                           )}
                           %
                         </h3>
@@ -159,7 +159,7 @@ export default function Games() {
                   </div>
                   <button
                     className="bg-orange-500 hover:bg-orange-600 text-white rounded-full px-4 py-2 transition-colors duration-200"
-                    onClick={() => (window.location.href = game.link)}
+                    onClick={() => (window.location.href = game?.link)}
                   >
                     Voir le jeu
                     <i className="fa-solid fa-arrow-up-right-from-square ml-3"></i>
@@ -182,13 +182,13 @@ export default function Games() {
                   )}
                   <div className="flex space-x-2 py-2 items-center text-gray-300">
                     <img
-                      src={game.auteur.picture}
+                      src={game.auteur?.picture}
                       className="h-[30px] w-[30px] rounded-full"
                     />
                     <p>
                       Partagé par{" "}
                       <span className="text-orange-500">
-                        {game.auteur.username}
+                        {game.auteur?.username}
                       </span>
                     </p>
                   </div>
@@ -202,7 +202,7 @@ export default function Games() {
             className="w-[90%] mx-auto bg-neutral-900 p-5 rounded-xl mt-2 max-w-[800px]"
           >
             <h1 className="text-xl text-left">À propos du jeu</h1>
-            <p className="text-left text-gray-300 mt-2">{game.description}</p>
+            <p className="text-left text-gray-300 mt-2">{game?.description}</p>
             <h2 className="text-xl text-left mt-4">Tags</h2>
             <div className="flex flex-wrap space-x-2 mt-2">
               {game.tags.map((tag) => (

@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import ScoreButton from "../components/ScoreButton";
+import defaultPP from "../assets/defaultProfile.webp"
 import { useState, useEffect } from "react";
 import { getCommentsByGameID } from "../firebase/database";
 
@@ -82,9 +83,9 @@ const Game = (props) => {
       </div>
       <div className="w-[13%] h-full space-y-3 flex flex-col justify-between flex-shrink-0 flex-basis-auto">
         <div className="flex justify-end items-center space-x-2">
-          <p>{game.auteur.username}</p>
+          <p>{game.auteur?.username ?? 'Deleted User'}</p>
           <img
-            src={game.auteur.picture}
+            src={game.auteur?.picture ?? defaultPP}
             className="h-[40px] w-[40px] rounded-full"
           />
         </div>
