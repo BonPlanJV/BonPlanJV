@@ -3,7 +3,7 @@ import ScoreButton from "../components/ScoreButton";
 import { useState, useEffect } from "react";
 import { getCommentsByGameID } from "../firebase/database";
 
-function Game(props) {
+const Game = (props) => {
   const game = props.game;
 
   const [commentCount, setCommentCount] = useState(0);
@@ -40,7 +40,7 @@ function Game(props) {
       key={game.key}
       className="bg-neutral-900 w-full rounded-xl p-5 flex text-white"
     >
-      <img src={game.image} className="h-[150px] object-cover rounded-xl" />
+      <img src={game.picture} className="h-[150px] object-cover rounded-xl" />
       <div className="px-5">
         <div className="flex flex-col space-y-2">
           <div className="flex space-x-2">
@@ -82,9 +82,9 @@ function Game(props) {
       </div>
       <div className="w-[13%] h-full space-y-3 flex flex-col justify-between flex-shrink-0 flex-basis-auto">
         <div className="flex justify-end items-center space-x-2">
-          <p>{game.auteur.pseudo}</p>
+          <p>{game.auteur.username}</p>
           <img
-            src={game.auteur.image}
+            src={game.auteur.picture}
             className="h-[40px] w-[40px] rounded-full"
           />
         </div>
