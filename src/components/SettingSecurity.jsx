@@ -8,7 +8,7 @@ export default function SettingSecurity() {
     useEffect(() => {
         getUserByID(userID).then(data => setUser(data))
     })
-    
+
     return (
         <section className="w-full animate-[selection_0.5s_ease-in-out] ml-10">
             <div className="flex flex-col space-y-5">
@@ -23,13 +23,13 @@ export default function SettingSecurity() {
                             <input
                                 placeholder="New email"
                                 className="w-full h-[50px] rounded-md bg-neutral-900 border-2 border-neutral-600 p-2"
-                                type="email" id="" />
+                                type="email" />
                             <input
                                 placeholder="Confirm email"
-                                className="w-full h-[50px] rounded-md bg-neutral-900 border-2 border-neutral-600 p-2" type="email" id="" />
+                                className="w-full h-[50px] rounded-md bg-neutral-900 border-2 border-neutral-600 p-2" type="email" />
                             <input
                                 placeholder="Your current password"
-                                className="w-full h-[50px] rounded-md bg-neutral-900 border-2 border-neutral-600 p-2" type="password" id="" />
+                                className="w-full h-[50px] rounded-md bg-neutral-900 border-2 border-neutral-600 p-2" type="password"/>
                         </div>
                         <div className="w-full flex justify-center items-center">
                             <button onClick={null} className="h-[50px] font-semibold rounded bg-bpjv w-[30%]" type="submit">Submit</button>
@@ -39,9 +39,9 @@ export default function SettingSecurity() {
                         <h1 className="font-semibold">Change your Password</h1>
                         <div className="flex flex-col space-y-5">
                             <input placeholder="New password"
-                                className="w-full h-[50px] rounded-md bg-neutral-900 border-2 border-neutral-600 p-2" type="text" id="" />
-                            <input placeholder="Confirm password" className="w-full h-[50px] rounded-md bg-neutral-900 border-2 border-neutral-600 p-2" type="text" id="" />
-                            <input placeholder="Your current password" className="w-full h-[50px] rounded-md bg-neutral-900 border-2 border-neutral-600 p-2" type="text" id="" />
+                                className="w-full h-[50px] rounded-md bg-neutral-900 border-2 border-neutral-600 p-2" type="text" />
+                            <input placeholder="Confirm password" className="w-full h-[50px] rounded-md bg-neutral-900 border-2 border-neutral-600 p-2" type="text"   />
+                            <input placeholder="Your current password" className="w-full h-[50px] rounded-md bg-neutral-900 border-2 border-neutral-600 p-2" type="text"   />
                         </div>
                         <div className="w-full flex justify-center items-center">
                             <button onClick={null} className="h-[50px] font-semibold rounded bg-bpjv w-[30%]" type="submit">Submit</button>

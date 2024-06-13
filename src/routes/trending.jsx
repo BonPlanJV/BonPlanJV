@@ -24,32 +24,33 @@ export default function Trending() {
         gamesWithUser.sort((a, b) => {
           return b.score - a.score;
         });
-        
+
         setGamesArray(gamesWithUser);
       });
     });
   }, []);
 
   return (
-    <main className="h-screen w-full text-center mx-auto text-gray-700">
-      <img className="absolute z-1 h-full w-full bg-center bg-cover" src={background} alt="" />
+    <main className="h-full w-full text-center mx-auto text-gray-700">
+      <img className="absolute h-full w-full bg-center bg-cover bg-no-repeat" src={background} alt="" />
       <div className="highlights-container"></div>
-      <div className="absolute h-screen w-full">
-        <div className="h-[15vh] w-full bg-neutral-800"></div>
-        <div className="h-full w-full bg-neutral-800 p-5 flex justify-center">
-          <div className="w-[90%] h-full space-y-10">
-            <h1 className="text-4xl text-white text-start absolute top-20">
-              Jeux du moment
-            </h1>
-            <div className="flex flex-wrap space-y-5">
-              {gamesArray.map((game) => (
-                <Game key={game.key} game={game} />  
-              ))}
+      <div className="h-full w-full">
+        <div className="absolute">
+          <div className="h-[15vh] w-full bg-neutral-800"></div>
+          <div className="h-full w-full bg-neutral-800 p-5 flex justify-center">
+            <div className="w-[90%] h-full space-y-10">
+              <h1 className="text-4xl text-white text-start absolute top-20">
+                Jeux du moment
+              </h1>
+              <div className="flex flex-wrap space-y-5">
+                {gamesArray.map((game) => (
+                  <Game key={game.key} game={game} />
+                ))}
+              </div>
             </div>
           </div>
         </div>
       </div>
-      <h1>Bienvenue sur BonPlanJV</h1>
     </main>
   );
 }
