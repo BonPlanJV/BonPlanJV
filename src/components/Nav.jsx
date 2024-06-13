@@ -23,10 +23,10 @@ export default function Nav() {
   }, [])
 
   return (
-    <header className="sticky z-10 top-0">
+    <header className="w-full sticky z-10 top-0">
       <nav className={`absolute w-full ${headerActive}`}>
-        <ul className="container flex w-full items-center p-7 text-gray-200">
-          <a href="/"><img src={banner} className="h-14" /></a>
+        <ul className="flex w-full items-center p-7 text-gray-200">
+          <a href="/"><img src={banner} className="absolute top-5 left-5 h-12" /></a>
           <div className="flex w-full justify-center">
             <li className={`border-b-2 ${active("/")} mx-1.5 sm:mx-6`}>
               <Link to={'/'}>Tendances</Link>

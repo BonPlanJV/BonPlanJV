@@ -39,7 +39,7 @@ export default function Profile() {
                     <div className="flex flex-col w-[40%] justify-center items-center space-y-5 mr-5">
                         <a
                             onClick={() => setProfileOption(1)}
-                            className="w-full flex justify-between items-center cursor-pointer">
+                            className={`${profileOption == 1 ? 'text-bpjv' : 'text-white'} w-full flex justify-between items-center cursor-pointer`}>
                             <div className="flex space-x-5 items-center">
                                 <img className="h-[30px] svg-orange-500" src={userSvg} alt="svg" />
                                 <div className="bpjv-color">
@@ -51,7 +51,7 @@ export default function Profile() {
                         </a>
                         <a
                             onClick={() => setProfileOption(2)}
-                            className="w-full flex justify-between items-center cursor-pointer">
+                            className={`${profileOption == 2 ? 'text-bpjv' : 'text-white'} w-full flex justify-between items-center cursor-pointer`}>
                             <div className="flex space-x-5 items-center">
                                 <img className="h-[30px] svg-orange-500" src={securitySvg} alt="svg" />
                                 <div className="bpjv-color">
@@ -63,7 +63,7 @@ export default function Profile() {
                         </a>
                         <a
                             onClick={() => setProfileOption(3)}
-                            className="w-full flex justify-between items-center cursor-pointer">
+                            className={`${profileOption == 3 ? 'text-bpjv' : 'text-white'} w-full flex justify-between items-center cursor-pointer`}>
                             <div className="flex space-x-5 items-center">
                                 <img className="h-[30px] svg-orange-500" src={privacySvg} alt="svg" />
                                 <div className="bpjv-color">
