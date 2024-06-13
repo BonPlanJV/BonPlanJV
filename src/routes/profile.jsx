@@ -6,6 +6,7 @@ import privacySvg from "../assets/icon-privacy.svg"
 import arrowSvg from "../assets/icon-arrow.svg"
 import defaultPP from "../assets/defaultProfile.webp"
 import ProfileOption from "../components/ProfileOption";
+import { NotificationProvider } from "../core/notificationContext.jsx";
 
 export default function Profile() {
     const [user, setUser] = useState(null);
@@ -18,17 +19,19 @@ export default function Profile() {
             setUser(data)
             setUserData(JSON.parse(localStorage.getItem('user')))
         })
+        document.addEventListener("update", ({ picture }) => { user.picture = picture })
         document.title = "Profile";
-    }, [userID]);
+    }, [user, userID]);
 
     return (
+        <NotificationProvider>
         <div className="h-screen w-full bg-neutral-800 flex justify-center">
             <div className="w-[80%] h-full flex flex-col justify-center">
                 <section className="h-[30vh] w-full flex justify-center items-center space-x-5 text-white">
                     <img className="rounded-full w-[120px]" src={user?.picture ?? defaultPP} alt="pp" />
                     <div className="h-full flex flex-col justify-center">
                         <h1 className="text-4xl">{user?.username ?? 'username'}</h1>
-                        <p className="text-sm text-gray-400">Member since: {new Date(Date(userData.createdAt)).toDateString() ?? 'no records found'}</p>
+                        <p className="text-sm text-gray-400">Member since: {new Date(Date(userData?.createdAt)).toDateString() ?? 'no records found'}</p>
                     </div>
                 </section>
                 <hr className="w-full flex my-10 border-neutral-700" />
@@ -77,5 +80,7 @@ export default function Profile() {
                 </section>
             </div>
         </div>
+        </NotificationProvider>
+
     )
 }

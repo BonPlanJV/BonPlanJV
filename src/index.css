@@ -71,3 +71,11 @@
   width: 100%;
   z-index: 1;
 }
+
+.success {
+  background: #3ce577;
+}
+
+.error {
+  background: #f53535;
+}

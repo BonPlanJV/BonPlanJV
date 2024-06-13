@@ -7,7 +7,7 @@ import banner from '../assets/Banner.png'
 import close from '../assets/close.png'
 
 export default function Login() {
-  const [message, setMessage] = useState(null);
+  const [message, showNotification] = useState(null);
   const [userId, setUserId] = useState(undefined);
   const [checked, setChecked] = useState(false);
   const [form, setForm] = useState({
@@ -27,11 +27,11 @@ export default function Login() {
   }, [userId, navigate]);
 
   const register = ({ username, email, password, confirmpassword, terms }) => {
-    setMessage('')
-    if(!username) return setMessage('You should provide a username.')
-    if(password != confirmpassword) return setMessage('Passwords dont match.')
-    if(!terms) return setMessage('You should accept the Terms & Policy.')
-    submitRegister({ username, email, password }, navigate, setMessage)
+    showNotification('')
+    if(!username) return showNotification('You should provide a username.')
+    if(password != confirmpassword) return showNotification('Passwords dont match.')
+    if(!terms) return showNotification('You should accept the Terms & Policy.')
+    submitRegister({ username, email, password }, navigate, showNotification)
     setForm(form)
   }
   

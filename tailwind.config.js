@@ -5,6 +5,24 @@ export default {
     extend: { 
       backgroundImage: {
         'privacy-bg': "url('/public/icon-privacy.svg')"
+      },
+      animation: {
+        'notification': 'notification 3s ease-in-out infinite',
+      },
+      keyframes: {
+        notification: {
+          '0%, 100%': { 
+            transform: 'translateX(0px)',
+            opacity: '0'
+          },
+          '50%': { 
+            transform: 'translateX(-20px)',
+          },
+          '100%': { 
+            opacity: '1'
+          },
+
+        }
       }
     }
   },

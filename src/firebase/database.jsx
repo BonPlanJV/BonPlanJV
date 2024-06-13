@@ -27,7 +27,7 @@ export const handleLogOut = (navigate) => {
     })
 }
 
-export const submitLogin = async (user, navigate, setMessage) => {
+export const submitLogin = async (user, navigate, showNotification) => {
   const { email, password } = user
   auth
     .signInWithEmailAndPassword(email, password)
@@ -38,11 +38,11 @@ export const submitLogin = async (user, navigate, setMessage) => {
       if (user) navigate('/profile')
     })
     .catch(({ message }) => {
-      setMessage(message.split(":")[1])
+      showNotification(message.split(":")[1], 'error')
     })
 }
 
-export const submitRegister = async ({ username, email, password }, navigate, setMessage) => {
+export const submitRegister = async ({ username, email, password }, navigate, showNotification) => {
   const userData = {
     username,
     email
@@ -50,17 +50,21 @@ export const submitRegister = async ({ username, email, password }, navigate, se
   auth.createUserWithEmailAndPassword(email, password)
     .then(({ user }) => {
       set(ref(db, `users/${user.uid}`), userData)
-      submitLogin({ email, password}, navigate, setMessage)
-      navigate('/profile')
+      submitLogin({ email, password}, navigate, showNotification)
     })
     .catch(err => {
-      setMessage(err.message.split(':')[1])
+      showNotification(err.message.split(':')[1])
     })
 }
 
 export const updateData = async (path, data) => {
   const reference = ref(db, path)
   return update(reference, data)
+}
+
+export const setData = async (path, data) => {
+  const reference = ref(db, path)
+  return set(reference, data)
 }
 
 export const pushData = (path, data) => {
@@ -72,7 +76,7 @@ export const deleteData = path => {
   return remove(reference)
 }
 
-export const getUserByID = async userID => {
+export const getUserByID = async (userID) => {
     const userRef = ref(db, `users/${userID}`)
     const snapshot = await get(userRef)
     if (snapshot.exists()) {
