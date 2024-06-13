@@ -52,7 +52,7 @@ const Game = (props) => {
             {game.tags.map((tag, index) => (
               <div key={index}>
                 <p className="bg-orange-500 rounded-full px-3 py-1">
-                  {tag.name}
+                  {tag?.name}
                 </p>
               </div>
             ))}
@@ -76,7 +76,7 @@ const Game = (props) => {
             )}
           </div>
           <p className="text-wrap text-start text-gray-300">
-            {game.description.substring(0, 250) + "..."}
+            {game.description?.substring(0, 250) + "..."}
           </p>
         </div>
       </div>
