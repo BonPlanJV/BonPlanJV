@@ -21,6 +21,10 @@ export default function Trending() {
           return { ...game, auteur: user, tags: tags, key: key };
         })
       ).then((gamesWithUser) => {
+        gamesWithUser.sort((a, b) => {
+          return b.score - a.score;
+        });
+        
         setGamesArray(gamesWithUser);
       });
     });
