@@ -21,9 +21,10 @@ export default function Comments() {
 
           return { ...game, auteur: user, tags: tags, key: key};
         })
-      ).then((gamesWithUser) => {
+      )
+      .then((gamesWithUser) => {
         gamesWithUser.sort((a, b) => {
-          return a.nombreCommentaires - b.nombreCommentaires;
+          return b.nombreCommentaires - a.nombreCommentaires;
         });
 
         setGamesArray(gamesWithUser);
