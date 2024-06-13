@@ -182,13 +182,13 @@ export default function Games() {
                   )}
                   <div className="flex space-x-2 py-2 items-center text-gray-300">
                     <img
-                      src={game.auteur.image}
+                      src={game.auteur.picture}
                       className="h-[30px] w-[30px] rounded-full"
                     />
                     <p>
                       Partagé par{" "}
                       <span className="text-orange-500">
-                        {game.auteur.pseudo}
+                        {game.auteur.username}
                       </span>
                     </p>
                   </div>
@@ -252,7 +252,7 @@ export default function Games() {
                   className="bg-neutral-800 rounded-xl p-4 mt-4"
                 >
                   <p className="text-orange-500 text-left">
-                    {comment.auteur.pseudo}{" "}
+                    {comment.auteur.username}{" "}
                     <span className="text-gray-400 text-sm">
                       {" "}
                       • {formatDate(comment.date)}
