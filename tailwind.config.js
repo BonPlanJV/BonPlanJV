@@ -21,7 +21,14 @@ export default {
           '100%': { 
             opacity: '1'
           },
-
+        },
+        selection: {
+          '0%, 100%': { 
+            opacity: '0'
+          },
+          '100%': { 
+            opacity: '1'
+          },
         }
       }
     }
