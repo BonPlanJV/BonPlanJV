@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import ScoreButton from "../components/ScoreButton";
 import defaultPP from "../assets/defaultProfile.webp"
 import { useState, useEffect } from "react";

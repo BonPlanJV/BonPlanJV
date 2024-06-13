@@ -9,6 +9,7 @@ import {
 import ScoreButton from "../components/ScoreButton";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import defaultPP from "../assets/defaultProfile.webp"
 
 export default function Games() {
   const { key } = useParams();
@@ -182,13 +183,13 @@ export default function Games() {
                   )}
                   <div className="flex space-x-2 py-2 items-center text-gray-300">
                     <img
-                      src={game.auteur?.picture}
+                      src={game.auteur?.picture ?? defaultPP}
                       className="h-[30px] w-[30px] rounded-full"
                     />
                     <p>
                       Partagé par{" "}
                       <span className="text-orange-500">
-                        {game.auteur?.username}
+                        {game.auteur?.username ?? "Deleted User"}
                       </span>
                     </p>
                   </div>
@@ -252,7 +253,7 @@ export default function Games() {
                   className="bg-neutral-800 rounded-xl p-4 mt-4"
                 >
                   <p className="text-orange-500 text-left">
-                    {comment.auteur.username}{" "}
+                    {comment.auteur?.username ?? "Deleted User"}{" "}
                     <span className="text-gray-400 text-sm">
                       {" "}
                       • {formatDate(comment.date)}
