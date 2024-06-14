@@ -68,8 +68,7 @@ export default function SettingCustomization() {
     }
     
     const submit = () => {
-        if (resizedB64) updatePicture(resizedB64)
-        console.log(newUsername);
+        if (resizedB64 !== null) updatePicture(resizedB64)
         if (newUsername !== null && newUsername !== user.username) updateUsername(newUsername)
         else showNotification('Nothing to change.', 'error')
     }
