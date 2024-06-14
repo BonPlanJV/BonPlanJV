@@ -35,7 +35,7 @@ const Game = ({ game }) => {
               {commentCount}
               <i className="fa-regular fa-comment ml-3"></i>
             </button>
-            {game.tags?.map((tag, index) => (
+            {game.tags.map((tag, index) => (
               <div key={index}>
                 <p className="bg-orange-500 rounded-full px-3 py-1">
                   {tag?.name}
