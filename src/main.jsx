@@ -21,6 +21,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           <Route path="/" element={<NotificationProvider><Home /></NotificationProvider>} />
           <Route path="/news" element={<NotificationProvider><Home sort={1} /></NotificationProvider>} />
           <Route path="/comments" element={<NotificationProvider><Home sort={2} /></NotificationProvider>} />
+          <Route path="/favorites" element={<NotificationProvider><Home getFavorites={true} /></NotificationProvider>} />
           <Route path="/create-deal" element={<NotificationProvider><CreateDeal /></NotificationProvider>} />
           <Route path="/profile" element={<NotificationProvider><Profile /></NotificationProvider>} />
           <Route path="/login" element={<NotificationProvider><Login /></NotificationProvider>} />

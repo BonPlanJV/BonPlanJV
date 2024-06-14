@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { getCommentsByGameID } from "../firebase/database";
 import PromoCopy from "./PromoCopy";
 import { Link } from 'react-router-dom';
+import FavoriteStar from "./FavoriteStar";
 
 const Game = ({ game }) => {
   const [commentCount, setCommentCount] = useState(0);
@@ -38,6 +39,7 @@ const Game = ({ game }) => {
                 </p>
               </div>
             ))}
+            <FavoriteStar game={game} />
           </div>
           <div className="flex space-x-2 items-end">
             <h1 className="text-white text-2xl">{game.titre}</h1>

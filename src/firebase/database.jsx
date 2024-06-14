@@ -198,3 +198,71 @@ export const submitCreateDeal = async (deal, navigate, showNotification) => {
       showNotification(error.message.split(':')[1])
   }
 }
+
+export const createFavorite = async (game, userID) => {
+  const favorite = {
+    gameID: game.key,
+    userID: userID
+  }
+
+  pushData('favorites', favorite);
+}
+
+export const deleteFavorite = async (game, userID) => {
+  const favoritesRef = ref(db, 'favorites');
+  const userFavoritesQuery = query(favoritesRef, orderByChild('userID'), equalTo(userID));
+
+  const snapshot = await get(userFavoritesQuery);
+  if (snapshot.exists()) {
+    const favorites = snapshot.val();
+    for (let key in favorites) {
+      if (favorites[key].gameID === game.key) {
+        deleteData(`favorites/${key}`);
+        document.dispatchEvent(new CustomEvent("favorite"))
+      }
+    }
+  }
+}
+
+export const getFavoriteByGameID = async (gameID, userID) => {
+  if (userID === null) {
+    return false;
+  }
+
+  const favoritesRef = ref(db, 'favorites');
+  const userFavoritesQuery = query(favoritesRef, orderByChild('userID'), equalTo(userID));
+
+  const snapshot = await get(userFavoritesQuery);
+  if (snapshot.exists()) {
+    const favorites = snapshot.val();
+    for (let key in favorites) {
+      if (favorites[key].gameID === gameID) {
+        return true;
+      }
+    }
+  }
+
+  return false;
+}
+
+export const getFavoriteGames = async (userID) => {
+  const favoritesRef = ref(db, 'favorites');
+  const userFavoritesQuery = query(favoritesRef, orderByChild('userID'), equalTo(userID));
+
+  const snapshot = await get(userFavoritesQuery);
+  if (snapshot.exists()) {
+    const favorites = snapshot.val();
+    const games = {};
+    for (let key in favorites) {
+      const gameRef = ref(db, `games/${favorites[key].gameID}`);
+      const gameSnapshot = await get(gameRef);
+      if (gameSnapshot.exists()) {
+        games[favorites[key].gameID] = gameSnapshot.val();
+      }
+    }
+
+    return games;
+  } else {
+    return {};
+  }
+}
