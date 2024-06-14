@@ -7,27 +7,19 @@ export default function Trending() {
   const [gamesArray, setGamesArray] = useState([]);
   useEffect(() => {
     readData("games").then((games) => {
-      Promise.all(
-        Object.entries(games).map(async (gameEntries) => {
+      setGamesArray(
+        Object.entries(games).map((gameEntries) => {
           const key = gameEntries[0];
           const game = gameEntries[1];
-          const user = await getUserByID(game.auteur);
-          const tags = await Promise.all(
-            game.tags.map(async (tagID) => {
-              const tag = await getTagByID(tagID);
-              return tag;
-            })
-          );
-          return { ...game, auteur: user, tags: tags, key: key };
-        })
-      ).then((gamesWithUser) => {
-        gamesWithUser.sort((a, b) => {
-          return b.score - a.score;
-        });
-
-        setGamesArray(gamesWithUser);
-      });
-    });
+          const user = getUserByID(game.auteur);
+          const tags = []
+          game.tags.map((tagID) => {
+            getTagByID(tagID).then(tag => tags.push(tag))
+          })
+          return { ...game, auteur: user, tags, key };
+        }).sort((a, b) =>  b.score - a.score)
+      )
+      })
   }, []);
 
   return (
