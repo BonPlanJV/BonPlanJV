@@ -10,6 +10,7 @@ import ScoreButton from "../components/ScoreButton";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import defaultPP from "../assets/defaultProfile.webp";
+import defaultGamePicture from "../assets/defaultGamePicture.jpg"
 import PromoCopy from "../components/PromoCopy";
 import { useNotification } from "../core/notificationContext";
 import FavoriteStar from "../components/FavoriteStar.jsx";
@@ -125,7 +126,7 @@ export default function Games() {
           >
             <div className="flex space-x-5">
               <img
-                src={game.image}
+                src={game.image ?? defaultGamePicture}
                 className="w-[200px] object-cover rounded-xl"
               />
               <div className="flex flex-col w-full">
