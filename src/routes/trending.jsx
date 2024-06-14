@@ -13,7 +13,7 @@ export default function Trending() {
           const game = gameEntries[1];
           const user = getUserByID(game.auteur);
           const tags = []
-          game.tags.map((tagID) => {
+          game.tags?.map((tagID) => {
             getTagByID(tagID).then(tag => tags.push(tag))
           })
           return { ...game, auteur: user, tags, key };
