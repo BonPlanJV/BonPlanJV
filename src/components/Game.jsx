@@ -20,19 +20,11 @@ const Game = (props) => {
   }, [game.key]);
 
   // Copy promo code
-  const [isCopied, setIsCopied] = useState(false);
   const handleCopy = (event) => {
     event.stopPropagation();
     event.preventDefault();
     navigator.clipboard.writeText(game.promoCode);
-    setIsCopied(true);
   };
-  useEffect(() => {
-    if (isCopied) {
-      const timer = setTimeout(() => setIsCopied(false), 2000); // hide after 2 seconds
-      return () => clearTimeout(timer);
-    }
-  }, [isCopied]);
 
   return (
     <a
@@ -97,11 +89,6 @@ const Game = (props) => {
               {game.promoCode}
               <i className="fa-regular fa-copy ml-2"></i>
             </button>
-            <div
-              className={`absolute z-10 inline-block px-3 py-2 text-sm font-medium text-white transition-all duration-300 bg-gray-900 rounded-lg shadow-sm ${isCopied ? "opacity-100 visible" : "opacity-0 invisible"} bottom-full left-1/2 transform -translate-x-1/2 mt-2`}
-            >
-              Copié dans le presse papier
-            </div>
           </div>
         )}
         <button

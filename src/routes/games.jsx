@@ -13,9 +13,12 @@ import defaultPP from "../assets/defaultProfile.webp"
 
 export default function Games() {
   const { key } = useParams();
+  const [game, setGame] = useState(null);
+  const [comments, setComments] = useState([]);
+  const [refreshComments, setRefreshComments] = useState(false);
+  const [comment, setComment] = useState("");
 
   // Game
-  const [game, setGame] = useState(null);
   useEffect(() => {
     readData(`games/${key}`).then(async (game) => {
       const user = await getUserByID(game?.auteur);
@@ -29,9 +32,6 @@ export default function Games() {
     });
   }, [key]);
 
-  // Comments
-  const [comments, setComments] = useState([]);
-  const [refreshComments, setRefreshComments] = useState(false);
   useEffect(() => {
     getCommentsByGameID(key).then((commentsEntries) => {
       if (commentsEntries) {
@@ -54,20 +54,11 @@ export default function Games() {
   }, [key, refreshComments]);
 
   // Copy promo code
-  const [isCopied, setIsCopied] = useState(false);
   const handleCopy = () => {
     navigator.clipboard.writeText(game?.promoCode);
-    setIsCopied(true);
   };
-  useEffect(() => {
-    if (isCopied) {
-      const timer = setTimeout(() => setIsCopied(false), 2000); // hide after 2 seconds
-      return () => clearTimeout(timer);
-    }
-  }, [isCopied]);
 
   // Post comment
-  const [comment, setComment] = useState("");
   const handleCommentChange = (event) => {
     setComment(event.target.value);
   };
@@ -84,7 +75,7 @@ export default function Games() {
     pushData("commentaires", commentData);
     game.nombreCommentaires += 1;
     updateData(`games/${key}`, {nombreCommentaires: game?.nombreCommentaires });
-    setComment("");
+    setComment(null);
     setRefreshComments(true);
   };
 
@@ -174,11 +165,6 @@ export default function Games() {
                         {game.promoCode}
                         <i className="fa-regular fa-copy ml-2"></i>
                       </button>
-                      <div
-                        className={`absolute z-10 inline-block px-3 py-2 text-sm font-medium text-white transition-all duration-300 bg-gray-900 rounded-lg shadow-sm ${isCopied ? "opacity-100 visible" : "opacity-0 invisible"} bottom-full left-1/2 transform -translate-x-1/2 mt-2`}
-                      >
-                        Copié dans le presse papier
-                      </div>
                     </div>
                   )}
                   <div className="flex space-x-2 py-2 items-center text-gray-300">
