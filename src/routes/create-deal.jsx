@@ -7,25 +7,27 @@ import photoSvg from "../assets/icon-photo.svg"
 import { HSStaticMethods } from 'preline';
 
 export default function CreateDeal() {
+  const [titre, setTitre] = useState(null);
+  const [prixInit, setPrixInit] = useState(null);
+  const [prix, setPrix] = useState(null);
+  const [promoCode, setPromoCode] = useState(null);
+  const [description, setDescription] = useState(null);
+  const [selectedTags, setSelectedTags] = useState([]);
   const [resizedB64, setResizedB64] = useState(null);
   const navigate = useNavigate();
   const { showNotification } = useNotification();
-  const state = {
-    titre: null,
-    prixInit: null,
-    prix: null,
-    promoCode: null,
-    description: null,
-    tags: []
-  };
 
   useEffect(() => {
+    if (!sessionStorage.getItem('userID')) {
+      navigate('/login');
+    }
+
     loadTags();
     HSStaticMethods.autoInit(['select']);
   }, [navigate]);
 
   const loadTags = () => {
-    document.title = "Creer un deal";
+    document.title = "Create deal";
     readData("tags").then((tags) => {
       const select = window.HSSelect.getInstance(document.getElementById("tagsSelect"), true)?.element;
       if (select) {
@@ -38,7 +40,7 @@ export default function CreateDeal() {
         });
   
         select.on('change', (val) => {
-          state.tags = val;
+          setSelectedTags(val);
         })
       }
     });
@@ -83,15 +85,15 @@ export default function CreateDeal() {
           <div className="h-[15vh] w-full bg-neutral-800"></div>
           <div className="h-full w-full bg-neutral-800 p-5 flex justify-center">
             <div className="w-[90%] h-full space-y-10"> 
-              <h1 className="text-4xl text-white text-start">Poster un deal</h1>
+              <h1 className="text-4xl text-white text-start">Publish new deal</h1>
               <form className="container flex flex-col w-full text-neutral-800">
                 <div className='w-100 flex'>
                   <div className="w-1/2 space-y-5">
                     <div className='w-full flex items-center'>
-                      <label className='text-white w-[120px]'>Nom du jeu</label>
+                      <label className='text-white w-[120px]'>Name</label>
                       <input
                         onInput={(e) => {
-                          state.titre = e.currentTarget.value;
+                          setTitre(e.currentTarget.value);
                         }}
                         className="border bg-gray-200 outline outline-3 outline-orange-500 outline-offset-0	rounded-md px-2 py-3 ml-2"
                         type="text"
@@ -101,10 +103,10 @@ export default function CreateDeal() {
                       />
                     </div>
                     <div className='w-full flex items-center'>
-                      <label className='text-white w-[120px]'>Prix initial</label>
+                      <label className='text-white w-[120px]'>Initial price</label>
                       <input 
                         onInput={(e) => {
-                          state.prixInit = e.currentTarget.value;
+                          setPrixInit(e.currentTarget.value);
                         }}
                         className="border bg-gray-200 outline outline-3 outline-orange-500 outline-offset-0	rounded-md px-2 py-3 ml-2"
                         placeholder="Prix initial"
@@ -114,10 +116,10 @@ export default function CreateDeal() {
                       />
                     </div>
                     <div className='w-full flex items-center'>
-                      <label className='text-white w-[120px]'>Prix final</label>
+                      <label className='text-white w-[120px]'>Final price</label>
                       <input 
                         onInput={(e) => {
-                          state.prix = e.currentTarget.value;
+                          setPrix(e.currentTarget.value);
                         }}
                         className="border bg-gray-200 outline outline-3 outline-orange-500 outline-offset-0	rounded-md px-2 py-3 ml-2"
                         placeholder="Prix final"
@@ -127,10 +129,10 @@ export default function CreateDeal() {
                       />
                     </div>
                     <div className='w-full flex items-center'>
-                      <label className='text-white w-[120px]'>Code Promo</label>
+                      <label className='text-white w-[120px]'>Promo code</label>
                       <input 
                         onInput={(e) => {
-                          state.promoCode = e.currentTarget.value;
+                          setPromoCode(e.currentTarget.value);
                         }}
                         className="border bg-gray-200 outline outline-3 outline-orange-500 outline-offset-0	rounded-md px-2 py-3 ml-2"
                         placeholder="Code Promo"
@@ -143,7 +145,7 @@ export default function CreateDeal() {
                       <label className='text-white'>Description</label>
                       <textarea 
                         onInput={(e) => {
-                          state.description = e.currentTarget.value;
+                          setDescription(e.currentTarget.value);
                         }}
                         className="w-full border mt-2 bg-gray-200 outline outline-3 outline-orange-500 outline-offset-0	rounded-md px-2 py-3 ml-2"
                         placeholder="Description"
@@ -161,10 +163,10 @@ export default function CreateDeal() {
                         "optionClasses": "py-2 px-4 w-full text-sm text-gray-800 cursor-pointer hover:bg-gray-100 rounded-lg focus:outline-none focus:bg-gray-100 dark:bg-neutral-900 dark:hover:bg-neutral-800 dark:text-neutral-200 dark:focus:bg-neutral-800",
                         "optionTemplate": "<div class=\"flex justify-between items-center w-full\"><span data-title></span><span class=\"hidden hs-selected:block\"><svg class=\"flex-shrink-0 size-3.5 text-blue-600 dark:text-blue-500\" xmlns=\"http:.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><polyline points=\"20 6 9 17 4 12\"/></svg></span></div>",
                         "extraMarkup": "<div class=\"absolute top-1/2 end-3 -translate-y-1/2\"><svg class=\"flex-shrink-0 size-3.5 text-gray-500 dark:text-neutral-500\" xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"m7 15 5 5 5-5\"/><path d=\"m7 9 5-5 5 5\"/></svg></div>"
-                      }' class="hidden" id="tagsSelect">
+                      }' className="hidden" id="tagsSelect">
                       </select>
                     </div>
-                    <label className="font-semibold">Photo</label>
+                    <label className="font-semibold">Picture</label>
                     <a
                         onClick={imgUpload}
                         className="flex space-x-5 items-center cursor-pointer">
@@ -181,16 +183,15 @@ export default function CreateDeal() {
                   <button
                     onClick={(e) => {
                       e.preventDefault();
-                      const { titre, prixInit, prix, promoCode, description, tags } = state;
                       if (titre && prixInit && prix && description && resizedB64) {
                         submitCreateDeal({ 
-                          titre, 
+                          titre,
                           prixInit, 
                           prix, 
                           promoCode, 
                           description,
                           image: resizedB64,
-                          tags: tags
+                          tags: selectedTags
                         }, navigate, showNotification);
                       } else {
                         showNotification('Veuillez remplir les champs obligatoires', 'error')
@@ -198,7 +199,7 @@ export default function CreateDeal() {
                     }}
                     className="bg-orange-500 rounded-md px-10 py-3 text-white font-semibold hover:bg-orange-600"
                   >
-                    Poster
+                    Publish
                   </button>
                 </div>
               </form>

@@ -165,7 +165,6 @@ export const getUserVote = async (game, userID) => {
 
 export const submitCreateDeal = async (deal, navigate, showNotification) => {
   try {
-    const { titre, prixInit, prix, promoCode, description, resizedBase64 } = deal;
     deal.auteur = sessionStorage.getItem('userID');
     deal.dateCreation = new Date().toISOString();
     deal.score = 0;
