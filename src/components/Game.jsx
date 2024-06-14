@@ -6,18 +6,13 @@ import PromoCopy from "./PromoCopy";
 import { Link } from 'react-router-dom';
 
 const Game = ({ game }) => {
-
   const [commentCount, setCommentCount] = useState(0);
+
   useEffect(() => {
-    async function fetchComments() {
-      const comments = await getCommentsByGameID(game.key);
-      if (comments) {
-        setCommentCount(comments.length);
-      } else {
-        setCommentCount(0);
-      }
-    }
-    fetchComments();
+    getCommentsByGameID(game.key)
+      .then(comments => {
+        comments ? setCommentCount(comments.length) : setCommentCount(0);
+      });
   }, [game.key]);
 
   return (
@@ -35,8 +30,8 @@ const Game = ({ game }) => {
               {commentCount}
               <i className="fa-regular fa-comment ml-3"></i>
             </button>
-            {game.tags.map((tag, index) => (
-              <div key={index}>
+            {game.tags?.map((tag, index) => (
+              <div key={index}> 
                 <p className="bg-orange-500 rounded-full px-3 py-1">
                   {tag?.name}
                 </p>

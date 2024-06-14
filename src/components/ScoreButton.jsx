@@ -1,32 +1,23 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { createVote, getUserVote } from "../firebase/database";
 import { useNavigate } from "react-router-dom"
 
-function ScoreButton(props) {
-  const game = props.game;
+function ScoreButton({ game }) {
+  const userID = sessionStorage.getItem("userID")
   const [score, setScore] = useState(game.score);
   const [userVote, setUserVote] = useState(false);
   const [isMinusHovered, setIsMinusHovered] = useState(false);
   const [isPlusHovered, setIsPlusHovered] = useState(false);
   const navigate = useNavigate()
 
-  getUserVote(game, sessionStorage.getItem("userID")).then((vote) => {
-    setUserVote(vote);
-  });
+  useEffect(() => {
+    getUserVote(game, userID).then((vote) => setUserVote(vote));
+  })
 
   const addVote = (game, voteType) => {
-    if (sessionStorage.getItem("userID") === null) {
-      navigate('/login')
-      return;
-    }
-    
-    if (userVote) {
-      return;
-    }
-
-    createVote(game, sessionStorage.getItem("userID"), voteType).then((res) => {
-        setScore(score + (voteType ? 1 : -1));
-    });
+    if (userID === null) return navigate('/login')
+    if (userVote) return
+    createVote(game, userID, voteType).then(() => setScore(score + (voteType ? 1 : -1)));
   }
 
   return (
