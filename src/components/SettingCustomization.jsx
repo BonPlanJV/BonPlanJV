@@ -9,10 +9,10 @@ export default function SettingCustomization() {
     const userID = sessionStorage.getItem("userID")
     const [resizedB64, setResizedB64] = useState(null);
     const [newUsername, setNewUsername] = useState(null);
-    const [user, setUser] = useState(null);
+    const [user, setUser] = useState(sessionStorage.getItem("user"));
 
     useEffect(() => {
-        getUserByID(userID).then(data => setUser(data))
+        if(!user) getUserByID(userID).then(data => setUser(data))
     })
 
     const imgUpload = () => {
@@ -38,6 +38,10 @@ export default function SettingCustomization() {
                 canvas.height = 250;
                 ctx.drawImage(img, 0, 0, 250, 250);
                 const resizedBase64 = canvas.toDataURL("image/png");
+                var base64str = resizedBase64.split('base64,')[1];
+                var decoded = atob(base64str);
+
+                console.log("FileSize: " + decoded.length);
                 document.getElementById("preview").src = resizedBase64;
                 setResizedB64(resizedBase64)
             };

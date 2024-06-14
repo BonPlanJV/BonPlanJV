@@ -5,14 +5,13 @@ import { useNotification } from "../core/notificationContext";
 export default function SettingSecurity() {
     const userID = sessionStorage.getItem("userID")
     const { showNotification } = useNotification();
-    const [user, setUser] = useState(null);
+    const [user, setUser] = useState(sessionStorage.getItem("user"));
     const [email, setEmail] = useState(null);
     const [emailConfirm, setEmailConfirm] = useState(null);
     const [passwordEmail, setPasswordEmail] = useState(null);
 
     useEffect(() => {
-        getUserByID(userID).then(data => setUser(data))
-        console.log(user);
+       if(!user) getUserByID(userID).then(data => setUser(data))
     })
 
     return (

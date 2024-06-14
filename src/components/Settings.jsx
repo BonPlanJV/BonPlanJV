@@ -7,11 +7,9 @@ import SwitchComponents from "./SwitchComponent.jsx";
 export default function ProfileOption({ option }) {
     const [activeComponent, setActiveComponent] = useState("SettingCustomization")
 
-
     useEffect(() => {
         setActiveComponent(option)
     }, [option])
-
 
     return (
         <SwitchComponents active={activeComponent}>
