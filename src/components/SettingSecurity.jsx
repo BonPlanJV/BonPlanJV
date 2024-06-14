@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { getUserByID, updateEmail } from "../firebase/database"
+import { getUserByID, updateEmail, updatePassword } from "../firebase/database"
 import { useNotification } from "../core/notificationContext";
 
 export default function SettingSecurity() {
@@ -9,6 +9,10 @@ export default function SettingSecurity() {
     const [email, setEmail] = useState(null);
     const [emailConfirm, setEmailConfirm] = useState(null);
     const [passwordEmail, setPasswordEmail] = useState(null);
+
+    const [password, setPassword] = useState(null);
+    const [passwordConfirm, setPasswordConfirm] = useState(null);
+    const [passwordCurrent, setPasswordCurrent] = useState(null);
 
     useEffect(() => {
        if(!user) getUserByID(userID).then(data => setUser(data))
@@ -46,13 +50,24 @@ export default function SettingSecurity() {
                     <div className="w-full space-y-5">
                         <h1 className="font-semibold">Change your Password</h1>
                         <div className="flex flex-col space-y-5">
-                            <input placeholder="New password"
-                                className="w-full h-[50px] rounded-md bg-neutral-900 border-2 border-neutral-600 p-2" type="text" />
-                            <input placeholder="Confirm password" className="w-full h-[50px] rounded-md bg-neutral-900 border-2 border-neutral-600 p-2" type="text"   />
-                            <input placeholder="Your current password" className="w-full h-[50px] rounded-md bg-neutral-900 border-2 border-neutral-600 p-2" type="text"   />
+                            <input 
+                                onChange={(e) => setPassword(e.currentTarget.value)}
+                                placeholder="New password"
+                                className="w-full h-[50px] rounded-md bg-neutral-900 border-2 border-neutral-600 p-2"
+                                type="password" />
+                            <input 
+                                onChange={(e) => setPasswordConfirm(e.currentTarget.value)}
+                                placeholder="Confirm password"
+                                className="w-full h-[50px] rounded-md bg-neutral-900 border-2 border-neutral-600 p-2"
+                                type="password" />
+                            <input
+                                onChange={(e) => setPasswordCurrent(e.currentTarget.value)}
+                                placeholder="Your current password"
+                                className="w-full h-[50px] rounded-md bg-neutral-900 border-2 border-neutral-600 p-2"
+                                type="password" />
                         </div>
                         <div className="w-full flex justify-center items-center">
-                            <button onClick={null} className="h-[50px] font-semibold rounded bg-bpjv w-[30%]" type="submit">Submit</button>
+                            <button onClick={() => updatePassword({ userID, currentPassword: passwordCurrent, newPassword: password, newPasswordConfirm: passwordConfirm, showNotification })} className="h-[50px] font-semibold rounded bg-bpjv w-[30%]" type="submit">Submit</button>
                         </div>
                     </div>
                 </div>

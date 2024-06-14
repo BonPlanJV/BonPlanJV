@@ -71,7 +71,23 @@ export const updateEmail = ({ userID, currentEmail, email, emailConfirm, passwor
       })
       .catch((error) => showNotification(error.message.split(':')[1].split(".")[0], "error"))
   } else showNotification("Emails dont match.", "error")
+}
 
+export const updatePassword = ({ userID, currentPassword, newPassword, newPasswordConfirm, showNotification }) => {
+  console.log(newPassword, currentPassword)
+  if(newPassword === currentPassword) return showNotification("The password has to be different from the current one.", "error")
+  if(newPassword === newPasswordConfirm) {
+    auth.signInWithEmailAndPassword(auth.currentUser.email, currentPassword)
+      .then(({ user }) => {
+        if(user) auth.currentUser.updatePassword(newPassword)
+          .then(() => {
+            updateData(`users/${userID}`, { password: newPassword })
+            showNotification("Password successfully updated.", "success")
+          })
+          .catch((error) => showNotification(error.message.split(':')[1].split(".")[0], "error"))
+      })
+      .catch((error) => showNotification(error.message.split(':')[1].split(".")[0], "error"))
+  } else showNotification("Passwords dont match.", "error")
 }
 
 export const updateData = async (path, data) => {
