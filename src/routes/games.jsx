@@ -59,9 +59,13 @@ export default function Games() {
   const handleCommentChange = (event) => {
     setComment(event.target.value);
   };
-  
+
   const handleCommentSubmit = async (event) => {
     event.preventDefault();
+    if (!comment) {
+      showNotification("Comment cannot be empty", "error");
+      return;
+    }
 
     const date = new Date();
     const commentData = {
@@ -93,16 +97,16 @@ export default function Games() {
     const diffHrs = Math.floor(diffMins / 60); // convertir en heures
 
     if (diffMins < 60) {
-      return `Il y a ${diffMins}m`;
+      return `${diffMins}m ago`;
     } else if (diffHrs < 24) {
-      return `Il y a ${diffHrs}h`;
+      return `${diffHrs}h ago`;
     } else if (now.getFullYear() === commentDate.getFullYear()) {
-      return commentDate.toLocaleDateString("fr-FR", {
+      return commentDate.toLocaleDateString("en-EN", {
         day: "numeric",
         month: "long",
       });
     } else {
-      return commentDate.toLocaleDateString("fr-FR", {
+      return commentDate.toLocaleDateString("en-EN", {
         day: "numeric",
         month: "long",
         year: "numeric",
@@ -134,7 +138,7 @@ export default function Games() {
                       onClick={handleShare}
                     >
                       <i className="fa-regular fa-share-from-square px-1"></i>{" "}
-                      Partager
+                      Share
                     </button>
                     <button
                       className="rounded-full px-2 hover:text-orange-500"
@@ -176,7 +180,7 @@ export default function Games() {
                     className="bg-orange-500 hover:bg-orange-600 text-white rounded-full px-4 py-2 transition-colors duration-200"
                     onClick={() => (window.location.href = game?.link)}
                   >
-                    Voir le jeu
+                    Open offer
                     <i className="fa-solid fa-arrow-up-right-from-square ml-3"></i>
                   </button>
                   <PromoCopy game={game} />
@@ -186,7 +190,7 @@ export default function Games() {
                       className="h-[30px] w-[30px] rounded-full"
                     />
                     <p>
-                      Partagé par{" "}
+                      Shared by{" "}
                       <span className="text-orange-500">
                         {game.auteur?.username ?? "Deleted User"}
                       </span>
@@ -201,7 +205,7 @@ export default function Games() {
             id="game"
             className="w-[90%] mx-auto bg-neutral-900 p-5 rounded-xl mt-2 max-w-[800px]"
           >
-            <h1 className="text-xl text-left">À propos du jeu</h1>
+            <h1 className="text-xl text-left">About the game</h1>
             <p className="text-left text-gray-300 mt-2">{game?.description}</p>
             {game.tags && (
               <>
@@ -225,14 +229,14 @@ export default function Games() {
             className="w-[90%] mx-auto bg-neutral-900 p-5 rounded-xl mt-2 max-w-[800px]"
           >
             <h1 className="text-xl text-left" id="commentaires">
-              Commentaires
+              Comments
             </h1>
             {sessionStorage.getItem("userID") && (
               <div className="flex flex-col space-y-2 mt-4">
                 <textarea
                   id="comment"
                   className="w-full h-24 bg-neutral-800 text-gray-300 rounded-xl p-4"
-                  placeholder="Votre commentaire..."
+                  placeholder="Your comment..."
                   value={comment}
                   onChange={handleCommentChange}
                 ></textarea>
@@ -240,14 +244,14 @@ export default function Games() {
                   className="bg-orange-500 hover:bg-orange-600 text-white rounded-full px-4 py-2 transition-colors duration-200"
                   onClick={handleCommentSubmit}
                 >
-                  Envoyer
+                  Send
                 </button>
               </div>
             )}
             {!sessionStorage.getItem("userID") && (
               <div className="flex flex-col space-y-2 mt-4">
                 <p className="text-gray-300 text-left">
-                  Vous devez être connecté pour laisser un commentaire
+                  You must be logged in to leave a comment
                 </p>
               </div>
             )}
