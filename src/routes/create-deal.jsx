@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom'
 import { useEffect, useState } from "react";
 import { readData, submitCreateDeal } from '../firebase/database';
 import { useNotification } from "../core/notificationContext.jsx";
-import defaultPP from "../assets/defaultProfile.webp"
+import defaultGamePicture from "../assets/defaultGamePicture.jpg"
 import photoSvg from "../assets/icon-photo.svg"
 import { HSStaticMethods } from 'preline';
 
@@ -170,7 +170,7 @@ export default function CreateDeal() {
                     <a
                         onClick={imgUpload}
                         className="flex space-x-5 items-center cursor-pointer">
-                        <img id="preview" className="h-[50px] rounded-full" src={defaultPP} alt="" />
+                        <img id="preview" className="h-[50px] rounded-[20%]" src={defaultGamePicture} alt="" />
                         <div className="flex items-center space-x-2">
                             <img className="h-[30px] w-[30px] invert" src={photoSvg} alt="" />
                             <p className="text-md text-gray-400">.jpg .png</p>
