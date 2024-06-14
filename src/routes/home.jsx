@@ -24,7 +24,7 @@ export default function Home({ sort = 0, getFavorites = false }) {
       const gamesWithDetails = [];
 
       for (const [key, game] of Object.entries(games)) {
-        const user = getUserByID(game.auteur);
+        const user = await getUserByID(game.auteur);
         const tags = await Promise.all(
           (game.tags || []).map((tagID) => getTagByID(tagID))
         ); 
