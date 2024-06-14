@@ -93,11 +93,18 @@ export default function SettingCustomization() {
     return (
         <section className="w-full animate-[selection_0.5s_ease-in-out] ml-10">
             <div className="flex space-x-10">
+                
                 <div className="flex flex-col space-y-5 w-[40%]">
                     <h1 className="font-semibold">Profile Picture</h1>
+                    {user?.providerId === "google.com" && (
+                        <div id="google" className="w-full bg-neutral-700 p-5 rounded-md text-white">
+                            You are connected with Google, <br/>you can&apos;t change your picture.
+                        </div>
+                    )}
                     <a
                         onClick={imgUpload}
-                        className="flex space-x-5 items-center cursor-pointer">
+                        className="flex space-x-5 items-center cursor-pointer"
+                        {...(user?.providerId === "google.com" && { style: { display: "none" } })}>
                         <img id="preview" className="h-[50px] rounded-full" src={user?.picture ?? defaultPP} alt="" />
                         <div className="flex items-center space-x-2">
                             <img className="h-[30px] w-[30px] invert" src={photoSvg} alt="" />

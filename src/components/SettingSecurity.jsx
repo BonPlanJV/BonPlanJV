@@ -27,7 +27,7 @@ export default function SettingSecurity() {
                 </div>
                 {user?.providerId === "google.com" && (
                     <div id="google" className="w-full bg-neutral-700 p-5 rounded-md text-white">
-                        Vous êtes connecté avec Google, vous ne pouvez pas changer vos identifiants.
+                        You are connected with Google, you can&apos;t change your email or password.
                     </div>
                 )}
                 <div className="w-full flex space-x-5" {...(user?.providerId === "google.com" && { style: { display: "none" } })}>
