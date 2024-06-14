@@ -145,6 +145,7 @@ export default function CreateDeal() {
                         onInput={(e) => {
                           setPromoCode(e.currentTarget.value);
                         }}
+                        maxLength="12"
                         className="border bg-gray-200 outline outline-3 outline-orange-500 outline-offset-0	rounded-md px-2 py-3 ml-2"
                         placeholder="Code Promo"
                         autoComplete="Code Promo"
