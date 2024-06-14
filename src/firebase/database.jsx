@@ -57,6 +57,23 @@ export const submitRegister = async ({ username, email, password }, navigate, sh
     })
 }
 
+export const updateEmail = ({ userID, currentEmail, email, emailConfirm, password, showNotification}) =>  {
+  if(email === currentEmail) return showNotification("The email has to be different from the current one.", "error")
+  if(email === emailConfirm) {
+    auth.signInWithEmailAndPassword(currentEmail, password)
+      .then(({ user }) => {
+        if(user) auth.currentUser.updateEmail(email)
+          .then(() => {
+            updateData(`users/${userID}`, { email })
+            showNotification("Email successfully updated.", "success")
+          })
+          .catch((error) => showNotification(error.message.split(':')[1].split(".")[0], "error"))
+      })
+      .catch((error) => showNotification(error.message.split(':')[1].split(".")[0], "error"))
+  } else showNotification("Emails dont match.", "error")
+
+}
+
 export const updateData = async (path, data) => {
   const reference = ref(db, path)
   return update(reference, data)
