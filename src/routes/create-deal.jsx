@@ -15,6 +15,7 @@ export default function CreateDeal() {
   const [description, setDescription] = useState(null);
   const [selectedTags, setSelectedTags] = useState([]);
   const [resizedB64, setResizedB64] = useState(null);
+  const [lien, setLien] = useState(null);
   const navigate = useNavigate();
   const { showNotification } = useNotification();
 
@@ -127,6 +128,17 @@ export default function CreateDeal() {
                       />
                     </div>
                     <div className='w-full flex items-center'>
+                      <label className='text-white w-[120px]'>Offer link</label>
+                      <input 
+                        onInput={(e) => {
+                          setLien(e.currentTarget.value);
+                        }}
+                        className="border bg-gray-200 outline outline-3 outline-orange-500 outline-offset-0	rounded-md px-2 py-3 ml-2"
+                        placeholder="Link"
+                        autoComplete="Link"
+                      />
+                    </div>
+                    <div className='w-full flex items-center'>
                       <label className='text-white w-[120px]'>Promo code</label>
                       <input 
                         onInput={(e) => {
@@ -180,13 +192,14 @@ export default function CreateDeal() {
                   <button
                     onClick={(e) => {
                       e.preventDefault();
-                      if (titre && prixInit && prix && description) {
+                      if (titre && prixInit && prix && description && lien) {
                         submitCreateDeal({ 
                           titre,
                           prixInit,
                           prix, 
                           promoCode, 
                           description,
+                          lien,
                           image: resizedB64,
                           tags: selectedTags
                         }, navigate, showNotification);
@@ -203,6 +216,9 @@ export default function CreateDeal() {
                             //no break
                           case !description:
                             showNotification('Please fill the description field', 'error')
+                            //no break
+                          case !lien:
+                            showNotification('Please fill the description link', 'error')
                             //no break
                           }
                         }

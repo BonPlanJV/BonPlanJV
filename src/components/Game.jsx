@@ -71,16 +71,19 @@ const Game = ({ game }) => {
           />
         </div>
         <PromoCopy game={game} />
-        <button
-          className="bg-orange-500 hover:bg-orange-600 text-white rounded-full px-4 py-2 transition-colors duration-200"
-          onClick={(event) => {
-            event.stopPropagation();
-            event.preventDefault();
-          }}
-        >
-          Voir le jeu
-          <i className="fa-solid fa-arrow-up-right-from-square ml-2"></i>
-        </button>
+        {game.lien && (
+          <button
+            className="bg-orange-500 hover:bg-orange-600 text-white rounded-full px-4 py-2 transition-colors duration-200"
+            onClick={(event) => {
+              event.stopPropagation();
+              event.preventDefault();
+              window.open(game.lien, "_blank");
+            }}
+          >
+            Open offer
+            <i className="fa-solid fa-arrow-up-right-from-square ml-2"></i>
+          </button>
+        )}
       </div>
     </Link>
   );
