@@ -1,11 +1,17 @@
-import { readData, getUserByID, getTagByID } from "../firebase/database.jsx";
+import { readData, getUserByID, getTagByID, getFavoriteGames } from "../firebase/database.jsx";
 import { useState, useEffect } from "react";
 import background from "../assets/background.jpeg";
 import Game from "../components/Game.jsx";
 import PageTitle from "../components/PageTitle.jsx";
+import { useNavigate } from "react-router-dom";
 
-export default function Home({ sort = 0 }) {
+export default function Home({ sort = 0, getFavorites = false }) {
   const [gamesArray, setGamesArray] = useState([]);
+  const navigate = useNavigate();
+
+  if (getFavorites && sessionStorage.getItem("userID") == null) {
+    navigate("/login");
+  }
 
   useEffect(() => {
     const sortingMethod = [
@@ -13,24 +19,31 @@ export default function Home({ sort = 0 }) {
       (a, b) => new Date(a.dateCreation) - new Date(b.dateCreation),
       (a, b) => b.nombreCommentaires - a.nombreCommentaires,
     ];
+
     const fetchGamesWithDetails = async () => {
-      const games = await readData("games");
+      console.log('test');
+      const games = getFavorites ? await getFavoriteGames(sessionStorage.getItem("userID")) : await readData("games");
       const gamesWithDetails = [];
 
       for (const [key, game] of Object.entries(games)) {
-        const user = await getUserByID(game.auteur);
+        const user = getUserByID(game.auteur);
         const tags = await Promise.all(
           (game.tags || []).map((tagID) => getTagByID(tagID))
         );
-        gamesWithDetails.push({ ...game, auteur: user, tags, key });
+        gamesWithDetails.push({ ...game, auteur: user, tags, key});
       }
 
       setGamesArray(gamesWithDetails.sort(sortingMethod[sort]));
     };
 
+    document.addEventListener("favorite", () => {
+      if (getFavorites) fetchGamesWithDetails()
+    });
+
+
     fetchGamesWithDetails();
-    document.title = "BonPlanJV - " + (sort === 0 ? "Trending" : sort === 1 ? "News" : "Comments");
-  }, [sort]);
+    document.title = "BonPlanJV - " + (getFavorites ? "Favorites" : (sort === 0 ? "Trending" : sort === 1 ? "News" : "Comments"));
+  }, [getFavorites, sort]);
 
   return (
     <main className="h-full w-full text-center mx-auto text-gray-700">
@@ -41,11 +54,11 @@ export default function Home({ sort = 0 }) {
       />
       <div className="highlights-container"></div>
       <div className="h-full w-full">
-        <div className="absolute">
+        <div className="absolute h-full w-full">
           <div className="h-[5vh] w-full bg-neutral-800"></div>
           <div className="h-full w-full bg-neutral-800 p-5 flex justify-center">
             <div className="w-[90%] h-full space-y-10">
-              <PageTitle title={sort === 0 ? "Trending games" : sort === 1 ? "News" : "Most commented"} />
+              <PageTitle title={getFavorites ? "Favorites" : (sort === 0 ? "Trending games" : sort === 1 ? "News" : "Most commented")} />
               <div className="flex flex-wrap space-y-5">
                 {gamesArray.map((game) => (
                   <Game key={game.key} game={game} />

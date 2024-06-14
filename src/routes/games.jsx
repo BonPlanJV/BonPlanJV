@@ -12,6 +12,7 @@ import { useParams } from "react-router-dom";
 import defaultPP from "../assets/defaultProfile.webp";
 import PromoCopy from "../components/PromoCopy";
 import { useNotification } from "../core/notificationContext";
+import FavoriteStar from "../components/FavoriteStar.jsx";
 
 export default function Games() {
   const { key } = useParams();
@@ -133,8 +134,9 @@ export default function Games() {
                     <ScoreButton key={game.key} game={game} />
                   </div>
                   <div>
+                    <FavoriteStar game={game} />
                     <button
-                      className="rounded-full px-2 hover:text-orange-500"
+                      className="rounded-full px-2 hover:text-orange-500 ml-1"
                       onClick={handleShare}
                     >
                       <i className="fa-regular fa-share-from-square px-1"></i>{" "}

@@ -37,8 +37,8 @@ export default function NavBar() {
             <li className={`border-b-2 ${active("/comments")} mx-1.5 sm:mx-6`}>
               <Link to={'/comments'}>Commented</Link>
             </li>
-            <li className={`border-b-2 ${active("/")} mx-1.5 sm:mx-6`}>
-              <Link to={'/'}>Favorites</Link>
+            <li className={`border-b-2 ${active("/favorites")} mx-1.5 sm:mx-6`}>
+              <Link to={'/favorites'}>Favorites</Link>
             </li>
           </div>
           <div className="flex absolute right-0">
