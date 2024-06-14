@@ -1,5 +1,6 @@
 import ScoreButton from "../components/ScoreButton";
 import defaultPP from "../assets/defaultProfile.webp";
+import defaultGamePicture from "../assets/defaultGamePicture.jpg"
 import { useState, useEffect } from "react";
 import { getCommentsByGameID } from "../firebase/database";
 import PromoCopy from "./PromoCopy";
@@ -21,9 +22,7 @@ const Game = ({ game }) => {
       key={game.key}
       className="bg-neutral-900 w-full rounded-xl p-5 flex justify-between text-white"
     >
-      {game.image && (
-        <img src={game.image} className="h-[150px] object-cover rounded-xl" />
-      )}
+      <img src={game.image ?? defaultGamePicture} className="h-[150px] w-[100px] object-cover rounded-xl" />
       <div className="flex-grow px-5">
         <div className="flex flex-col space-y-2">
           <div className="flex space-x-2">

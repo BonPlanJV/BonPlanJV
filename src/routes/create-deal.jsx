@@ -1,3 +1,4 @@
+/* eslint-disable no-fallthrough */
 import { useNavigate } from 'react-router-dom'
 import { useEffect, useState } from "react";
 import { readData, submitCreateDeal } from '../firebase/database';
@@ -99,7 +100,6 @@ export default function CreateDeal() {
                         type="text"
                         placeholder="Nom du jeu"
                         autoComplete="Nom du jeu"
-                        required
                       />
                     </div>
                     <div className='w-full flex items-center'>
@@ -112,7 +112,6 @@ export default function CreateDeal() {
                         placeholder="Prix initial"
                         autoComplete="Prix initial"
                         type='number'
-                        required
                       />
                     </div>
                     <div className='w-full flex items-center'>
@@ -125,7 +124,6 @@ export default function CreateDeal() {
                         placeholder="Prix final"
                         autoComplete="Prix final"
                         type='number'
-                        required
                       />
                     </div>
                     <div className='w-full flex items-center'>
@@ -150,7 +148,6 @@ export default function CreateDeal() {
                         className="w-full border mt-2 bg-gray-200 outline outline-3 outline-orange-500 outline-offset-0	rounded-md px-2 py-3 ml-2"
                         placeholder="Description"
                         autoComplete="Description"
-                        required
                       />
                     </div>
                     <div className='w-full'>
@@ -183,10 +180,10 @@ export default function CreateDeal() {
                   <button
                     onClick={(e) => {
                       e.preventDefault();
-                      if (titre && prixInit && prix && description && resizedB64) {
+                      if (titre && prixInit && prix && description) {
                         submitCreateDeal({ 
                           titre,
-                          prixInit, 
+                          prixInit,
                           prix, 
                           promoCode, 
                           description,
@@ -194,9 +191,23 @@ export default function CreateDeal() {
                           tags: selectedTags
                         }, navigate, showNotification);
                       } else {
-                        showNotification('Veuillez remplir les champs obligatoires', 'error')
+                        switch (true) {
+                          case !titre:
+                            showNotification('Please fill the name field', 'error')
+                            //no break
+                          case !prixInit:
+                            showNotification('Please fill the inial price field', 'error')
+                            //no break
+                          case !prix:
+                            showNotification('Please fill the price field', 'error')
+                            //no break
+                          case !description:
+                            showNotification('Please fill the description field', 'error')
+                            //no break
+                          }
+                        }
                       }
-                    }}
+                    }
                     className="bg-orange-500 rounded-md px-10 py-3 text-white font-semibold hover:bg-orange-600"
                   >
                     Publish

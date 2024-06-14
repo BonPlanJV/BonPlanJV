@@ -176,6 +176,7 @@ export const submitCreateDeal = async (deal, navigate, showNotification) => {
 
     deal.tags = tagsObject;
     pushData('games', deal);
+    showNotification('Deal successfully created.', 'success')
     navigate('/')
   } catch (error) {
       showNotification(error.message.split(':')[1])
