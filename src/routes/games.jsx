@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import defaultPP from "../assets/defaultProfile.webp"
 import PromoCopy from "../components/PromoCopy";
+import { useNotification } from "../core/notificationContext";
 
 export default function Games() {
   const { key } = useParams();
@@ -18,6 +19,7 @@ export default function Games() {
   const [comments, setComments] = useState([]);
   const [refreshComments, setRefreshComments] = useState(false);
   const [comment, setComment] = useState("");
+  const { showNotification } = useNotification();
 
   // Game
   useEffect(() => {
@@ -54,11 +56,6 @@ export default function Games() {
     });
   }, [key, refreshComments]);
 
-  // Copy promo code
-  const handleCopy = () => {
-    navigator.clipboard.writeText(game?.promoCode);
-  };
-
   // Post comment
   const handleCommentChange = (event) => {
     setComment(event.target.value);
@@ -76,9 +73,14 @@ export default function Games() {
     pushData("commentaires", commentData);
     game.nombreCommentaires += 1;
     updateData(`games/${key}`, {nombreCommentaires: game?.nombreCommentaires });
-    setComment(null);
+    setComment("");
     setRefreshComments(true);
   };
+
+  const handleShare = () => {
+    navigator.clipboard.writeText(window.location.href);
+    showNotification("Lien copié dans le presse-papier", "success");
+  }  
 
   function formatDate(dateString) {
     const commentDate = new Date(dateString);
@@ -118,11 +120,11 @@ export default function Games() {
                     <ScoreButton key={game.key} game={game} />
                   </div>
                   <div>
-                    <button className="rounded-full px-2 hover:text-orange-500">
+                    <button className="rounded-full px-2 hover:text-orange-500" onClick={handleShare}>
                       <i className="fa-regular fa-share-from-square px-1"></i>{" "}
                       Partager
                     </button>
-                    <button className="rounded-full px-2 hover:text-orange-500">
+                    <button className="rounded-full px-2 hover:text-orange-500" onClick={() => document.getElementById("commentaires").scrollIntoView({ behavior: 'smooth' })}>
                       <i className="fa-regular fa-comment px-1"></i>{" "}
                       {comments.length}
                     </button>
@@ -198,7 +200,7 @@ export default function Games() {
             id="game"
             className="w-[90%] mx-auto bg-neutral-900 p-5 rounded-xl mt-2 max-w-[800px]"
           >
-            <h1 className="text-xl text-left">Commentaires</h1>
+            <h1 className="text-xl text-left" id="commentaires">Commentaires</h1>
             {sessionStorage.getItem("userID") && (
               <div className="flex flex-col space-y-2 mt-4">
                 <textarea
