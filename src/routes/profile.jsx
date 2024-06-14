@@ -21,6 +21,7 @@ export default function Profile() {
                 setUserData(JSON.parse(localStorage.getItem('user')))
             })
         }
+        //TODO probleme quand on change de picture et de pseudo en meme temps ça change pas la photo
         document.addEventListener("update", ({ detail: { username, picture } }) => { 
             if(!user) getUserByID(userID).then(data => setUser(data))
             setUser({
