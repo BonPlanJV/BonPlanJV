@@ -162,3 +162,23 @@ export const getUserVote = async (game, userID) => {
     return null;
   }
 }
+
+export const submitCreateDeal = async (deal, navigate, showNotification) => {
+  try {
+    const { titre, prixInit, prix, promoCode, description, resizedBase64 } = deal;
+    deal.auteur = sessionStorage.getItem('userID');
+    deal.dateCreation = new Date().toISOString();
+    deal.score = 0;
+    deal.nombreCommentaires = 0;
+    const tagsObject = {};
+    for (let i = 0; i < deal.tags.length; i++) {
+        tagsObject[i] = deal.tags[i];
+    }
+
+    deal.tags = tagsObject;
+    pushData('games', deal);
+    navigate('/')
+  } catch (error) {
+      showNotification(error.message.split(':')[1])
+  }
+}

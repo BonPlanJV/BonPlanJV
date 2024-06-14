@@ -1,6 +1,9 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ["./src/**/*.{html,js,jsx,ts,tsx}"],
+  content: [
+    "./src/**/*.{html,js,jsx,ts,tsx}",
+    'node_modules/preline/dist/*.js'
+  ],
   theme: {
     extend: { 
       backgroundImage: {
@@ -33,6 +36,8 @@ export default {
       }
     }
   },
-  plugins: [],
+  plugins: [
+    require('preline/plugin')
+  ],
 }
 
