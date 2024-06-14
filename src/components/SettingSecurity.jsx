@@ -72,10 +72,10 @@ export default function SettingSecurity() {
                     </div>
                 </div>
                 <div className="pt-10 space-y-5">
-                    <h1 className="font-semibold">Two factor authentication</h1>
-                    <div className="w-full h-[20vh] rounded-xl bg-neutral-700 flex flex-col justify-center items-center space-y-5">
+                    <h1 className="font-semibold">Two factor authentication {'(comming soon)'}</h1>
+                    <div className="blur cursor-not-allowed	w-full h-[20vh] rounded-xl bg-neutral-700 flex flex-col justify-center items-center space-y-5">
                         <p className="text-md text-white">Get codes with your favorite authentication mobile application to secure your account</p>
-                        <button onClick={null} className="h-[50px] font-semibold rounded bg-bpjv w-[20%]" type="submit">Enable</button>
+                        <button disabled={true} onClick={null} className="h-[50px] font-semibold rounded bg-bpjv w-[20%]" type="submit">Enable</button>
                     </div>
                 </div>
             </div>
