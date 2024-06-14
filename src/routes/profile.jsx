@@ -11,7 +11,7 @@ import { NotificationProvider } from "../core/notificationContext.jsx";
 export default function Profile() {
     const [user, setUser] = useState(null);
     const [profileOption, setProfileOption] = useState("SettingCustomization");
-    const [userData, setUserData] = useState(JSON.parse(localStorage.getItem('user')));
+    const [userData, setUserData] = useState(null);
     const userID = sessionStorage.getItem('userID');
 
     useEffect(() => {
@@ -21,7 +21,15 @@ export default function Profile() {
                 setUserData(JSON.parse(localStorage.getItem('user')))
             })
         }
-        document.addEventListener("update", ({ picture }) => { user.picture = picture })
+        document.addEventListener("update", ({ detail: { username, picture } }) => { 
+            if(!user) getUserByID(userID).then(data => setUser(data))
+            setUser({
+                email: user?.email,
+                username: username ?? user?.username,
+                picture: picture ?? user?.picture
+            })
+
+         })
         document.title = "BonPlanJV - Profile";
     }, [user, userID]);
 

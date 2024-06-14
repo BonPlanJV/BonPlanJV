@@ -38,10 +38,6 @@ export default function SettingCustomization() {
                 canvas.height = 250;
                 ctx.drawImage(img, 0, 0, 250, 250);
                 const resizedBase64 = canvas.toDataURL("image/png");
-                var base64str = resizedBase64.split('base64,')[1];
-                var decoded = atob(base64str);
-
-                console.log("FileSize: " + decoded.length);
                 document.getElementById("preview").src = resizedBase64;
                 setResizedB64(resizedBase64)
             };
@@ -49,7 +45,11 @@ export default function SettingCustomization() {
         reader.readAsDataURL(file);
     };
 
-    const updatePicture = (picture) => {
+    const dispatch = (type, data) => {
+        document.dispatchEvent(new CustomEvent(type, { detail: data }))
+    }
+
+    const updatePicture = (picture, silent = true) => {
         getUserByID(userID).then(({ username, email }) => {
             setData(`users/${userID}`, {
                 username,
@@ -57,23 +57,36 @@ export default function SettingCustomization() {
                 picture
             }).then(() => {
                 setResizedB64(null)
-                showNotification('picture updated succesfully', 'success')
-                document.dispatchEvent(new CustomEvent("update", { picture }))
+                if (!silent) {
+                    showNotification('picture updated succesfully', 'success')
+                    dispatch("update", { picture })
+                }
             })
         })
     }
 
-    const updateUsername = (username) => {
+    const updateUsername = (username, silent = true) => {
         updateData(`users/${userID}`, { username }).then(() => {
-            showNotification('username updated succesfully', 'success')
             getUserByID(userID).then(data => setUser(data))
             setNewUsername(null)
+            if (!silent) {
+                showNotification('username updated succesfully', 'success')
+                dispatch("update", { username })
+            }
         })
+    }
+
+    const updateUsernameAndPicture = (picture, username) => {
+        updatePicture(picture)
+        updateUsername(username)
+        showNotification('username & picture updated succesfully', 'success')
+        dispatch("update", { username, picture })
     }
     
     const submit = () => {
-        if (resizedB64 !== null) updatePicture(resizedB64)
-        if (newUsername !== null && newUsername !== user.username) updateUsername(newUsername)
+        if(resizedB64 !== null && (newUsername !== null && newUsername !== user.username)) return updateUsernameAndPicture(resizedB64, newUsername)
+        if (resizedB64 !== null) updatePicture(resizedB64, false)
+        if (newUsername !== null && newUsername !== user.username) updateUsername(newUsername, false)
         else showNotification('Nothing to change.', 'error')
     }
 
