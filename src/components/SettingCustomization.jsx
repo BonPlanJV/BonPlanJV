@@ -84,10 +84,10 @@ export default function SettingCustomization() {
     }
     
     const submit = () => {
-        if(resizedB64 !== null && (newUsername !== null && newUsername !== user.username)) return updateUsernameAndPicture(resizedB64, newUsername)
-        if (resizedB64 !== null) updatePicture(resizedB64, false)
-        if (newUsername !== null && newUsername !== user.username) updateUsername(newUsername, false)
-        else showNotification('Nothing to change.', 'error')
+        if (resizedB64 !== null && (newUsername !== null && newUsername !== user.username)) return updateUsernameAndPicture(resizedB64, newUsername)
+        if (resizedB64 !== null) return updatePicture(resizedB64, false)
+        if (newUsername !== null && newUsername !== user.username) return updateUsername(newUsername, false)
+        showNotification('Nothing to change.', 'error')
     }
 
     return (
