@@ -21,22 +21,20 @@ export default function Games() {
   const [comment, setComment] = useState("");
   const { showNotification } = useNotification();
 
-  // Game
   useEffect(() => {
     readData(`games/${key}`).then(async (game) => {
       const user = await getUserByID(game?.auteur);
-      const tags = await Promise.all(
+      const tags = game.tags ? await Promise.all(
         game.tags.map(async (tagID) => {
           const tag = await getTagByID(tagID);
           return tag;
         })
-      );
+      ) : null;
+
       setGame({ ...game, auteur: user, tags: tags, key: key });
       document.title = "BonPlanJV - " + game?.titre;
     });
-  }, [key]);
 
-  useEffect(() => {
     getCommentsByGameID(key).then((commentsEntries) => {
       if (commentsEntries) {
         Promise.all(
@@ -61,6 +59,7 @@ export default function Games() {
   const handleCommentChange = (event) => {
     setComment(event.target.value);
   };
+  
   const handleCommentSubmit = async (event) => {
     event.preventDefault();
 
@@ -204,17 +203,21 @@ export default function Games() {
           >
             <h1 className="text-xl text-left">À propos du jeu</h1>
             <p className="text-left text-gray-300 mt-2">{game?.description}</p>
-            <h2 className="text-xl text-left mt-4">Tags</h2>
-            <div className="flex flex-wrap space-x-2 mt-2">
-              {game.tags.map((tag) => (
-                <div
-                  key={tag.key}
-                  className="bg-orange-500 rounded-full px-3 py-1"
-                >
-                  {tag.name}
+            {game.tags && (
+              <>
+                <h2 className="text-xl text-left mt-4">Tags</h2>
+                <div className="flex flex-wrap space-x-2 mt-2">
+                  {game.tags.map((tag) => (
+                    <div
+                      key={tag.key}
+                      className="bg-orange-500 rounded-full px-3 py-1"
+                    >
+                      {tag.name}
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
+              </>
+            )}
           </div>
 
           <div
