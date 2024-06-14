@@ -25,7 +25,7 @@ const FavoriteStar = ({ game }) => {
     if (userID === null) return navigate("/login");
     isFavorite ? deleteFavorite(game, userID) : createFavorite(game, userID);
     setIsFavorite(!isFavorite);
-    showNotification(isFavorite ? "Removed from favorites" : "Added to favorites", "success");
+    showNotification(isFavorite ? `${game.titre} removed from favorites` : `${game.titre} added to favorites`, isFavorite ? "error" : "success");
   };
 
   return (
