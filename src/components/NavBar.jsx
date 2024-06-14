@@ -29,16 +29,16 @@ export default function NavBar() {
           <Link to={'/'}><img src={banner} className="absolute top-5 left-5 h-12" /></Link>
           <div className="flex w-full justify-center">
             <li className={`border-b-2 ${active("/")} mx-1.5 sm:mx-6`}>
-              <Link to={'/'}>Tendances</Link>
+              <Link to={'/'}>Trending</Link>
             </li>
             <li className={`border-b-2 ${active("/news")} mx-1.5 sm:mx-6`}>
-              <Link to={'/news'}>Nouveautés</Link>
+              <Link to={'/news'}>News</Link>
             </li>
             <li className={`border-b-2 ${active("/comments")} mx-1.5 sm:mx-6`}>
-              <Link to={'/comments'}>Commentés</Link>
+              <Link to={'/comments'}>Commented</Link>
             </li>
             <li className={`border-b-2 ${active("/")} mx-1.5 sm:mx-6`}>
-              <Link to={'/'}>Favoris</Link>
+              <Link to={'/'}>Favorites</Link>
             </li>
           </div>
           <div className="flex absolute right-0">
