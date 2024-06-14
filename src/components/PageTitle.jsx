@@ -7,10 +7,10 @@ const PageTitle = ({title}) => {
         {title ? title : "Bienvenue sur BonPlanJV"}
       </h1>
       <Link
-        className="bg-orange-500 hover:bg-orange-600 text-white rounded-full px-4 py-2 transition-colors duration-200"
+        className="bg-orange-500 hover:bg-orange-600 text-white rounded-full transition-colors duration-200 p-2"
         to="/create-deal"
       >
-        <i className="fa-solid fa-plus"></i>
+        <i className="fa-solid fa-plus w-6 h-6 rounded-full flex justify-center items-center"></i>
       </Link>
     </div>
   );
