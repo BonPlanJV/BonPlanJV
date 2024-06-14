@@ -7,11 +7,11 @@ import { useNavigate } from "react-router-dom";
 
 export default function Home({ sort = 0, getFavorites = false }) {
   const [gamesArray, setGamesArray] = useState([]);
+  const [favorites, setFavorite] = useState([]);
   const navigate = useNavigate();
+  const userID = sessionStorage.getItem("userID")
 
-  if (getFavorites && sessionStorage.getItem("userID") == null) {
-    navigate("/login");
-  }
+  if (getFavorites && userID == null) navigate("/login")
 
   useEffect(() => {
     const sortingMethod = [
@@ -20,20 +20,23 @@ export default function Home({ sort = 0, getFavorites = false }) {
       (a, b) => b.nombreCommentaires - a.nombreCommentaires,
     ];
 
-    const fetchGamesWithDetails = async () => {
-      console.log('test');
-      const games = getFavorites ? await getFavoriteGames(sessionStorage.getItem("userID")) : await readData("games");
+    const formatGames = async (games) => {
       const gamesWithDetails = [];
 
       for (const [key, game] of Object.entries(games)) {
         const user = getUserByID(game.auteur);
         const tags = await Promise.all(
           (game.tags || []).map((tagID) => getTagByID(tagID))
-        );
+        ); 
         gamesWithDetails.push({ ...game, auteur: user, tags, key});
-      }
+      } return gamesWithDetails
+    }
 
-      setGamesArray(gamesWithDetails.sort(sortingMethod[sort]));
+    const fetchGamesWithDetails = async () => {
+      const games = getFavorites ? await getFavoriteGames(userID) : await readData("games");
+      const gamesWithDetails = await formatGames(games)
+
+      getFavorites ? setFavorite(gamesWithDetails) : setGamesArray(gamesWithDetails.sort(sortingMethod[sort]));
     };
 
     document.addEventListener("favorite", () => {
@@ -43,7 +46,7 @@ export default function Home({ sort = 0, getFavorites = false }) {
 
     fetchGamesWithDetails();
     document.title = "BonPlanJV - " + (getFavorites ? "Favorites" : (sort === 0 ? "Trending" : sort === 1 ? "News" : "Comments"));
-  }, [getFavorites, sort]);
+  }, [getFavorites, sort, userID]);
 
   return (
     <main className="h-full w-full text-center mx-auto text-gray-700">
@@ -60,7 +63,9 @@ export default function Home({ sort = 0, getFavorites = false }) {
             <div className="w-[90%] h-full space-y-10">
               <PageTitle title={getFavorites ? "Favorites" : (sort === 0 ? "Trending games" : sort === 1 ? "News" : "Most commented")} />
               <div className="flex flex-wrap space-y-5">
-                {gamesArray.map((game) => (
+                {getFavorites ? favorites.map((game) => (
+                  <Game key={game.key} game={game} />
+                )) : gamesArray.map((game) => (
                   <Game key={game.key} game={game} />
                 ))}
               </div>
