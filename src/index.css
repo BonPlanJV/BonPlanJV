@@ -7,10 +7,19 @@
     src: url('./assets/Montserrat.ttf');
   }
   
-  .font-custom {
-    font-family: 'Montserrat';
-  }
-  
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #282424;
+  min-height: 100vh;
+}
+
+.font-custom {
+  font-family: 'Montserrat';
+}
+
 .clip {
   z-index: 1;
 }

@@ -10,6 +10,7 @@ import ScoreButton from "../components/ScoreButton";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import defaultPP from "../assets/defaultProfile.webp"
+import PromoCopy from "../components/PromoCopy";
 
 export default function Games() {
   const { key } = useParams();
@@ -156,17 +157,7 @@ export default function Games() {
                     Voir le jeu
                     <i className="fa-solid fa-arrow-up-right-from-square ml-3"></i>
                   </button>
-                  {game.promoCode && (
-                    <div className="relative">
-                      <button
-                        className="text-center rounded-full w-full px-4 py-2 mt-4 border-2 border-orange-500 border-dotted hover:border-orange-800 transition-colors duration-200"
-                        onClick={handleCopy}
-                      >
-                        {game.promoCode}
-                        <i className="fa-regular fa-copy ml-2"></i>
-                      </button>
-                    </div>
-                  )}
+                  <PromoCopy game={game} />
                   <div className="flex space-x-2 py-2 items-center text-gray-300">
                     <img
                       src={game.auteur?.picture ?? defaultPP}

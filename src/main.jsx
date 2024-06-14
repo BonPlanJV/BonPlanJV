@@ -20,19 +20,19 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <Router>
       <Navbar />
       <Routes>
-          <Route path="/" element={<Trending />} />
-          <Route path="/news" element={<News />} />
-          <Route path="/comments" element={<Comments />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route path="/" element={<NotificationProvider><Trending /></NotificationProvider>} />
+          <Route path="/news" element={<NotificationProvider><News /></NotificationProvider>} />
+          <Route path="/comments" element={<NotificationProvider><Comments /></NotificationProvider>} />
+          <Route path="/about" element={<NotificationProvider><About /></NotificationProvider>} />
+          <Route path="/profile" element={<NotificationProvider><Profile /></NotificationProvider>} />
           <Route path="/login" element={
             <NotificationProvider>
               <Login />
             </NotificationProvider>
           } />
           <Route path="/logout" element={<Logout />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/games/:key" element={<Games />} />
+          <Route path="/register" element={<NotificationProvider><Register /></NotificationProvider>} />
+          <Route path="/games/:key" element={<NotificationProvider><Games /></NotificationProvider>} />
           <Route element={<NotFound />} />
       </Routes>
     </Router>

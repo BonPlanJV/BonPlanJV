@@ -99,7 +99,7 @@ export const getUserByID = async (userID) => {
     if (snapshot.exists()) {
       return snapshot.val()
     } else {
-      console.log('User not found')
+      // console.log('User not found')
       return null
     }
 }

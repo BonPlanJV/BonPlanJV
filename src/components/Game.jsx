@@ -1,7 +1,9 @@
 import ScoreButton from "../components/ScoreButton";
-import defaultPP from "../assets/defaultProfile.webp"
+import defaultPP from "../assets/defaultProfile.webp";
 import { useState, useEffect } from "react";
 import { getCommentsByGameID } from "../firebase/database";
+import PromoCopy from "./PromoCopy";
+import { Link } from 'react-router-dom';
 
 const Game = ({ game }) => {
 
@@ -18,21 +20,14 @@ const Game = ({ game }) => {
     fetchComments();
   }, [game.key]);
 
-  // Copy promo code
-  const handleCopy = (event) => {
-    event.stopPropagation();
-    event.preventDefault();
-    navigator.clipboard.writeText(game.promoCode);
-  };
-
   return (
-    <a
-      href={`/games/${game.key}`}
+    <Link
+      to={`/games/${game.key}`}
       key={game.key}
-      className="bg-neutral-900 w-full rounded-xl p-5 flex text-white"
+      className="bg-neutral-900 w-full rounded-xl p-5 flex justify-between text-white"
     >
-      <img src={game.picture} className="h-[150px] object-cover rounded-xl" />
-      <div className="px-5">
+      <img src={game.image} className="h-[150px] object-cover rounded-xl" />
+      <div className="flex-grow px-5">
         <div className="flex flex-col space-y-2">
           <div className="flex space-x-2">
             <ScoreButton game={game} />
@@ -40,7 +35,7 @@ const Game = ({ game }) => {
               {commentCount}
               <i className="fa-regular fa-comment ml-3"></i>
             </button>
-            {game?.tags.map((tag, index) => (
+            {game.tags?.map((tag, index) => (
               <div key={index}>
                 <p className="bg-orange-500 rounded-full px-3 py-1">
                   {tag?.name}
@@ -73,23 +68,13 @@ const Game = ({ game }) => {
       </div>
       <div className="w-[13%] h-full space-y-3 flex flex-col justify-between flex-shrink-0 flex-basis-auto">
         <div className="flex justify-end items-center space-x-2">
-          <p>{game.auteur?.username ?? 'Deleted User'}</p>
+          <p>{game.auteur?.username ?? "Deleted User"}</p>
           <img
             src={game.auteur?.picture ?? defaultPP}
             className="h-[40px] w-[40px] rounded-full"
           />
         </div>
-        {game.promoCode && (
-          <div className="relative">
-            <button
-              className="text-center rounded-full w-full px-4 py-2 border-2 border-orange-500 border-dotted hover:border-orange-800 transition-colors duration-200"
-              onClick={handleCopy}
-            >
-              {game.promoCode}
-              <i className="fa-regular fa-copy ml-2"></i>
-            </button>
-          </div>
-        )}
+        <PromoCopy game={game} />
         <button
           className="bg-orange-500 hover:bg-orange-600 text-white rounded-full px-4 py-2 transition-colors duration-200"
           onClick={(event) => {
@@ -101,8 +86,8 @@ const Game = ({ game }) => {
           <i className="fa-solid fa-arrow-up-right-from-square ml-2"></i>
         </button>
       </div>
-    </a>
+    </Link>
   );
-}
+};
 
 export default Game;
