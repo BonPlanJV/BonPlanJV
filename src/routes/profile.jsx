@@ -49,7 +49,7 @@ export default function Profile() {
                         <div className="h-full flex flex-col w-[45%] justify-start items-start space-y-5 mr-5">
                             <a
                                 onClick={() => setProfileOption("SettingCustomization")}
-                                className={`${profileOption == 1 ? 'text-bpjv' : 'text-white'} w-full flex justify-between items-center cursor-pointer`}>
+                                className={`${profileOption == "SettingCustomization" ? 'text-bpjv' : 'text-white'} w-full flex justify-between items-center cursor-pointer`}>
                                 <div className="flex space-x-5 items-center mr-5">
                                     <img className="h-[30px] svg-orange-500" src={userSvg} alt="svg" />
                                     <div className="bpjv-color">
@@ -61,7 +61,7 @@ export default function Profile() {
                             </a>
                             <a
                                 onClick={() => setProfileOption("SettingSecurity")}
-                                className={`${profileOption == 2 ? 'text-bpjv' : 'text-white'} w-full flex justify-between items-center cursor-pointer`}>
+                                className={`${profileOption == "SettingSecurity" ? 'text-bpjv' : 'text-white'} w-full flex justify-between items-center cursor-pointer`}>
                                 <div className="flex space-x-5 items-center mr-5">
                                     <img className="h-[30px] svg-orange-500" src={securitySvg} alt="svg" />
                                     <div className="bpjv-color">
@@ -73,7 +73,7 @@ export default function Profile() {
                             </a>
                             <a
                                 onClick={() => setProfileOption("SettingPrivacy")}
-                                className={`${profileOption == 3 ? 'text-bpjv' : 'text-white'} w-full flex justify-between items-center cursor-pointer`}>
+                                className={`${profileOption == "SettingPrivacy" ? 'text-bpjv' : 'text-white'} w-full flex justify-between items-center cursor-pointer`}>
                                 <div className="flex space-x-5 items-center mr-5">
                                     <img className="h-[30px] svg-orange-500" src={privacySvg} alt="svg" />
                                     <div className="bpjv-color">
