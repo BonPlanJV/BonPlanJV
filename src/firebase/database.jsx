@@ -1,4 +1,4 @@
-import { auth, db, googleProvider } from '../firebase'
+import { auth, db, googleProvider, githubProvider } from '../firebase'
 import { ref, set, get, push, update, remove, orderByChild, query, equalTo } from 'firebase/database'
 
 export const readData = async path => {
@@ -45,6 +45,28 @@ export const submitLogin = async (user, navigate, showNotification) => {
 export const submitGoogleLogin = async (navigate, showNotification) => {
   auth
   .signInWithPopup(googleProvider)
+  .then((result) => {
+    const user = result.user
+    const userData = {
+      username: user.displayName,
+      email: user.email,
+      picture: user.photoURL,
+      providerId: user.providerData[0].providerId
+    }
+    set(ref(db, `users/${user.uid}`), userData)
+    sessionStorage.setItem('userID', user.uid)
+    localStorage.setItem('user', JSON.stringify(user))
+    document.dispatchEvent(new CustomEvent("auth", {  detail: { loggedIn: true } }))
+    navigate('/profile')
+  })
+  .catch(err => {
+    showNotification(err.message.split(':')[1], 'error')
+  })
+}
+
+export const submitGithubLogin = async (navigate, showNotification) => {
+  auth
+  .signInWithPopup(githubProvider)
   .then((result) => {
     const user = result.user
     const userData = {

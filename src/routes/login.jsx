@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
-import { submitLogin, submitGoogleLogin } from "../firebase/database";
+import { submitLogin, submitGoogleLogin, submitGithubLogin } from "../firebase/database";
 import { Link, useNavigate } from 'react-router-dom'
 import { useEffect, useState } from "react";
 import bglogin from "../assets/bglogin.jpg"
@@ -32,6 +32,40 @@ export default function Login() {
           <div className="absolute z-10 flex w-full xl:w-[50%] h-full text-white p-5 justify-center items-center space-y-5 bg-neutral-800">
             <div className="flex flex-col items-start w-[80%] md:w-[70%]">
               <h1 className="text-xl font-semibold">Log in</h1>
+              <div className="flex w-full items-center space-x-5 mt-5">
+                <button className="bg-white rounded-md px-2 py-3 text-neutral-800 font-semibold w-full hover:bg-gray-200 items-center flex justify-center max-w-[80px]"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    submitGoogleLogin(navigate, showNotification);
+                  }}>
+                  <img src="https://img.icons8.com/color/48/000000/google-logo.png" className="h-6 w-6" />
+                </button>
+                <button className="bg-blue-500 rounded-md px-2 py-3 text-white font-semibold w-full hover:bg-blue-600 items-center flex justify-center max-w-[80px]"
+                  onClick={() => {
+                    showNotification("This feature is not available yet", "error");
+                  }}>
+                  <img src="https://img.icons8.com/?size=100&id=106163&format=png&color=FFFFFF" className="h-6 w-6" />
+                </button>
+                <button className="bg-black rounded-md px-2 py-3 text-white font-semibold w-full hover:bg-gray-800 items-center flex justify-center max-w-[80px]"
+                  onClick={() => {
+                    showNotification("This feature is not available yet", "error");
+                  }}>
+                  <img src="https://img.icons8.com/?size=100&id=111056&format=png&color=FFFFFF" className="h-6 w-6" />
+                </button>
+                <button className="bg-black rounded-md px-2 py-3 text-white font-semibold w-full hover:bg-gray-800 items-center flex justify-center max-w-[80px]"
+                  onClick={() => {
+                    showNotification("This feature is not available yet", "error");
+                  }}>
+                  <img src="https://img.icons8.com/?size=100&id=30840&format=png&color=FFFFFF" className="h-6 w-6" />
+                </button>
+                <button className="bg-black rounded-md px-2 py-3 text-white font-semibold w-full hover:bg-gray-800 items-center flex justify-center max-w-[80px]"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    submitGithubLogin(navigate, showNotification);
+                  }}>
+                  <img src="https://img.icons8.com/?size=100&id=3tC9EQumUAuq&format=png&color=FFFFFF" className="h-6 w-6" />
+                </button>
+              </div>
               <hr className="w-full flex my-10" />
               <div className="container flex flex-col w-full justify-center items-center space-y-10 text-neutral-800">
                 <div className="flex flex-col w-full space-y-2">
@@ -69,15 +103,6 @@ export default function Login() {
                     className="bg-orange-500 rounded-md px-2 py-3 text-white font-semibold w-full hover:bg-orange-600"
                   >
                     Login
-                  </button>
-                  <button
-                    onClick={(e) => {
-                      e.preventDefault();
-                      submitGoogleLogin(navigate, showNotification);
-                    }}
-                    className="bg-white rounded-md px-2 py-3 text-neutral-800 font-semibold w-full hover:bg-gray-200 items-center flex justify-center"
-                  > <img src="https://img.icons8.com/color/48/000000/google-logo.png" className="h-6 w-6 mr-2" /> 
-                  Login with Google
                   </button>
                 </div>
                 <div className="flex w-full place-content-between text-white">
