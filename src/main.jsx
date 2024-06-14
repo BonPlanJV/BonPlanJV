@@ -4,7 +4,6 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/NavBar";
 import NotFound from "./routes/404";
 import Home from "./routes/home";
-import About from "./routes/about";
 import Login from "./routes/login";
 import Profile from "./routes/profile";
 import Register from "./routes/register";
@@ -21,7 +20,6 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           <Route path="/" element={<NotificationProvider><Home /></NotificationProvider>} />
           <Route path="/news" element={<NotificationProvider><Home sort={1} /></NotificationProvider>} />
           <Route path="/comments" element={<NotificationProvider><Home sort={2} /></NotificationProvider>} />
-          <Route path="/about" element={<NotificationProvider><About /></NotificationProvider>} />
           <Route path="/profile" element={<NotificationProvider><Profile /></NotificationProvider>} />
           <Route path="/login" element={
             <NotificationProvider>

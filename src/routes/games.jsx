@@ -9,7 +9,7 @@ import {
 import ScoreButton from "../components/ScoreButton";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import defaultPP from "../assets/defaultProfile.webp"
+import defaultPP from "../assets/defaultProfile.webp";
 import PromoCopy from "../components/PromoCopy";
 import { useNotification } from "../core/notificationContext";
 
@@ -31,7 +31,8 @@ export default function Games() {
           return tag;
         })
       );
-      setGame({ ...game, auteur: user, tags: tags, key: key});
+      setGame({ ...game, auteur: user, tags: tags, key: key });
+      document.title = "BonPlanJV - " + game?.titre;
     });
   }, [key]);
 
@@ -72,7 +73,9 @@ export default function Games() {
     };
     pushData("commentaires", commentData);
     game.nombreCommentaires += 1;
-    updateData(`games/${key}`, {nombreCommentaires: game?.nombreCommentaires });
+    updateData(`games/${key}`, {
+      nombreCommentaires: game?.nombreCommentaires,
+    });
     setComment("");
     setRefreshComments(true);
   };
@@ -80,7 +83,7 @@ export default function Games() {
   const handleShare = () => {
     navigator.clipboard.writeText(window.location.href);
     showNotification("Lien copié dans le presse-papier", "success");
-  }  
+  };
 
   function formatDate(dateString) {
     const commentDate = new Date(dateString);
@@ -89,15 +92,22 @@ export default function Games() {
     const diffSecs = Math.floor(diffMs / 1000); // convertir en secondes
     const diffMins = Math.floor(diffSecs / 60); // convertir en minutes
     const diffHrs = Math.floor(diffMins / 60); // convertir en heures
-  
+
     if (diffMins < 60) {
       return `Il y a ${diffMins}m`;
     } else if (diffHrs < 24) {
       return `Il y a ${diffHrs}h`;
     } else if (now.getFullYear() === commentDate.getFullYear()) {
-      return commentDate.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long' });
+      return commentDate.toLocaleDateString("fr-FR", {
+        day: "numeric",
+        month: "long",
+      });
     } else {
-      return commentDate.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+      return commentDate.toLocaleDateString("fr-FR", {
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+      });
     }
   }
 
@@ -120,11 +130,21 @@ export default function Games() {
                     <ScoreButton key={game.key} game={game} />
                   </div>
                   <div>
-                    <button className="rounded-full px-2 hover:text-orange-500" onClick={handleShare}>
+                    <button
+                      className="rounded-full px-2 hover:text-orange-500"
+                      onClick={handleShare}
+                    >
                       <i className="fa-regular fa-share-from-square px-1"></i>{" "}
                       Partager
                     </button>
-                    <button className="rounded-full px-2 hover:text-orange-500" onClick={() => document.getElementById("commentaires").scrollIntoView({ behavior: 'smooth' })}>
+                    <button
+                      className="rounded-full px-2 hover:text-orange-500"
+                      onClick={() =>
+                        document
+                          .getElementById("commentaires")
+                          .scrollIntoView({ behavior: "smooth" })
+                      }
+                    >
                       <i className="fa-regular fa-comment px-1"></i>{" "}
                       {comments.length}
                     </button>
@@ -145,7 +165,8 @@ export default function Games() {
                         >
                           -
                           {Math.round(
-                            ((game?.prixInit - game?.prix) / game?.prixInit) * 100
+                            ((game?.prixInit - game?.prix) / game?.prixInit) *
+                              100
                           )}
                           %
                         </h3>
@@ -200,7 +221,9 @@ export default function Games() {
             id="game"
             className="w-[90%] mx-auto bg-neutral-900 p-5 rounded-xl mt-2 max-w-[800px]"
           >
-            <h1 className="text-xl text-left" id="commentaires">Commentaires</h1>
+            <h1 className="text-xl text-left" id="commentaires">
+              Commentaires
+            </h1>
             {sessionStorage.getItem("userID") && (
               <div className="flex flex-col space-y-2 mt-4">
                 <textarea

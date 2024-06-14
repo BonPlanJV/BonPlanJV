@@ -20,7 +20,7 @@ export default function Profile() {
             setUserData(JSON.parse(localStorage.getItem('user')))
         })
         document.addEventListener("update", ({ picture }) => { user.picture = picture })
-        document.title = "Profile";
+        document.title = "BonPlanJV - Profile";
     }, [user, userID]);
 
     return (

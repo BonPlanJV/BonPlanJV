@@ -28,6 +28,7 @@ export default function Trending({ sort = 0 }) {
     };
 
     fetchGamesWithDetails();
+    document.title = "BonPlanJV - " + (sort === 0 ? "Trending" : sort === 1 ? "News" : "Comments");
   }, [sort]);
 
   return (

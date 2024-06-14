@@ -11,7 +11,7 @@ export default function NavBar() {
   const active = (path) =>
     path == location.pathname
       ? "border-neutral-200"
-      : "border-transparent hover:border-sky-600";
+      : "border-transparent hover:border-orange-600";
 
   useEffect(() => {
     setUserId(sessionStorage.getItem("userID"))
@@ -45,10 +45,10 @@ export default function NavBar() {
             {
               userId ? (
                 <>
-                  <li className={`border-b-2 ${active("/profile")} mx-1.5 sm:mx-6`}>
+                  <li className={`border-b-2 font-bold ${active("/profile")} mx-1.5 sm:mx-6`}>
                     <Link to={'/profile'}>Profile</Link>
                   </li>
-                  <li className={`border-b-2 text-red-500 ${active("/logout")} mx-1.5 sm:mx-6`}>
+                  <li className={`border-b-2 text-red-500 font-bold ${active("/logout")} mx-1.5 sm:mx-6`}>
                     <Link to={'/logout'}>Logout</Link>
                   </li>
                 </>

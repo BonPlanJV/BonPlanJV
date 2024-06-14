@@ -17,7 +17,7 @@ export default function Login() {
   useEffect(() => {
     setUserId(sessionStorage.getItem("userID"))
     if (userId) navigate('/profile')
-    document.title = "Login";
+    document.title = "BonPlanJV - Login";
   }, [userId, navigate]);
 
   return (
