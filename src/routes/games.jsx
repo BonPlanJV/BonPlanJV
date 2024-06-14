@@ -268,7 +268,7 @@ export default function Games() {
                       • {formatDate(comment.date)}
                     </span>
                   </p>
-                  <p className="text-gray-300 text-left">{comment.message}</p>
+                  <p className="text-gray-300 text-left whitespace-pre-wrap truncate">{comment.message}</p>
                 </div>
               ))}
           </div>
