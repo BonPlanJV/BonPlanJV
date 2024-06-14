@@ -2,8 +2,9 @@ import { readData, getUserByID, getTagByID } from "../firebase/database.jsx";
 import { useState, useEffect } from "react";
 import background from "../assets/background.jpeg";
 import Game from "../components/Game.jsx";
+import PageTitle from "../components/PageTitle.jsx";
 
-export default function Trending({ sort = 0 }) {
+export default function Home({ sort = 0 }) {
   const [gamesArray, setGamesArray] = useState([]);
 
   useEffect(() => {
@@ -41,12 +42,10 @@ export default function Trending({ sort = 0 }) {
       <div className="highlights-container"></div>
       <div className="h-full w-full">
         <div className="absolute">
-          <div className="h-[15vh] w-full bg-neutral-800"></div>
+          <div className="h-[5vh] w-full bg-neutral-800"></div>
           <div className="h-full w-full bg-neutral-800 p-5 flex justify-center">
             <div className="w-[90%] h-full space-y-10">
-              <h1 className="text-4xl text-white text-start absolute top-20">
-                Jeux du moment
-              </h1>
+              <PageTitle title={sort === 0 ? "Trending games" : sort === 1 ? "News" : "Most commented"} />
               <div className="flex flex-wrap space-y-5">
                 {gamesArray.map((game) => (
                   <Game key={game.key} game={game} />
