@@ -136,6 +136,7 @@ export default function CreateDeal() {
                         className="border bg-gray-200 outline outline-3 outline-orange-500 outline-offset-0	rounded-md px-2 py-3 ml-2"
                         placeholder="Link"
                         autoComplete="Link"
+                        type="url"
                       />
                     </div>
                     <div className='w-full flex items-center'>
@@ -192,7 +193,7 @@ export default function CreateDeal() {
                   <button
                     onClick={(e) => {
                       e.preventDefault();
-                      if (titre && prixInit && prix && description && lien) {
+                      if (titre && prixInit && prix && description && lien && prixInit >= prix) {
                         submitCreateDeal({ 
                           titre,
                           prixInit,
@@ -204,26 +205,14 @@ export default function CreateDeal() {
                           tags: selectedTags
                         }, navigate, showNotification);
                       } else {
-                        switch (true) {
-                          case !titre:
-                            showNotification('Please fill the name field', 'error')
-                            //no break
-                          case !prixInit:
-                            showNotification('Please fill the inial price field', 'error')
-                            //no break
-                          case !prix:
-                            showNotification('Please fill the price field', 'error')
-                            //no break
-                          case !description:
-                            showNotification('Please fill the description field', 'error')
-                            //no break
-                          case !lien:
-                            showNotification('Please fill the description link', 'error')
-                            //no break
-                          }
-                        }
+                        if (!titre) showNotification('Please fill the name field', 'error');
+                        if (!prixInit) showNotification('Please fill the initial price field', 'error');
+                        if (!prix) showNotification('Please fill the price field', 'error');
+                        if (!description) showNotification('Please fill the description field', 'error');
+                        if (!lien) showNotification('Please fill the link field', 'error');
+                        if (prixInit && prix && prixInit < prix) showNotification('The initial price entered is higher than the final price', 'error');
                       }
-                    }
+                    }}
                     className="bg-orange-500 rounded-md px-10 py-3 text-white font-semibold hover:bg-orange-600"
                   >
                     Publish
