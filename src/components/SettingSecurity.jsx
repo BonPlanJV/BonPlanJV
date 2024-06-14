@@ -25,7 +25,12 @@ export default function SettingSecurity() {
                     <h1 className="font-semibold">Account security</h1>
                     <p className="text-sm text-gray-400">{user?.email}</p>
                 </div>
-                <div className="w-full flex space-x-5">
+                {user?.providerId === "google.com" && (
+                    <div id="google" className="w-full bg-neutral-700 p-5 rounded-md text-white">
+                        Vous êtes connecté avec Google, vous ne pouvez pas changer vos identifiants.
+                    </div>
+                )}
+                <div className="w-full flex space-x-5" {...(user?.providerId === "google.com" && { style: { display: "none" } })}>
                     <div className="w-full pr-5 border-r border-neutral-700 space-y-5">
                         <h1 className="font-semibold">Change your Email</h1>
                         <div className="flex flex-col space-y-5">

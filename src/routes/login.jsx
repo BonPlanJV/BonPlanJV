@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
-import { submitLogin } from "../firebase/database";
+import { submitLogin, submitGoogleLogin } from "../firebase/database";
 import { Link, useNavigate } from 'react-router-dom'
 import { useEffect, useState } from "react";
 import bglogin from "../assets/bglogin.jpg"
@@ -60,15 +60,26 @@ export default function Login() {
                     id="mdp"
                   />
                 </div>
-                <button
-                  onClick={(e) => {
-                    e.preventDefault();
-                    submitLogin({ email, password }, navigate, showNotification);
-                  }}
-                  className="bg-orange-500 rounded-md px-2 py-3 text-white font-semibold w-full hover:bg-orange-600"
-                >
-                  Login
-                </button>
+                <div className="flex flex-col w-full space-y-4">
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault();
+                      submitLogin({ email, password }, navigate, showNotification);
+                    }}
+                    className="bg-orange-500 rounded-md px-2 py-3 text-white font-semibold w-full hover:bg-orange-600"
+                  >
+                    Login
+                  </button>
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault();
+                      submitGoogleLogin(navigate, showNotification);
+                    }}
+                    className="bg-white rounded-md px-2 py-3 text-neutral-800 font-semibold w-full hover:bg-gray-200 items-center flex justify-center"
+                  > <img src="https://img.icons8.com/color/48/000000/google-logo.png" className="h-6 w-6 mr-2" /> 
+                  Login with Google
+                  </button>
+                </div>
                 <div className="flex w-full place-content-between text-white">
                   <a href={"/register"}>
                     No account yet ?
