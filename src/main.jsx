@@ -28,7 +28,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           <Route path="/logout" element={<Logout />} />
           <Route path="/register" element={<NotificationProvider><Register /></NotificationProvider>} />
           <Route path="/games/:key" element={<NotificationProvider><Games /></NotificationProvider>} />
-          <Route element={<NotFound />} />
+          <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
   </React.StrictMode>

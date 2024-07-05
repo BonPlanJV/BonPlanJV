@@ -1,15 +1,14 @@
+import { Link } from "react-router-dom";
+
 export default function NotFound() {
   return (
-    <main className="text-center mx-auto text-gray-700 p-4">
-      <h1 className="max-6-xs text-6xl text-sky-700 font-thin uppercase my-16">
-        Not Found
+    <main className="h-screen w-full space-x-2 flex justify-center items-center text-center mx-auto text-white">
+      <h1>
+        404 Not Found.
       </h1>
-      
-      <p className="my-4">
-        <a href="/" className="text-sky-600 hover:underline">
-          Home
-        </a>
-      </p>
+      <Link to="/" className="text-sky-600 hover:underline">
+        Go home
+      </Link>
     </main>
   );
 }

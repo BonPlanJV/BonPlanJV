@@ -4,6 +4,7 @@ import background from "../assets/background.jpeg";
 import Game from "../components/Game.jsx";
 import PageTitle from "../components/PageTitle.jsx";
 import { useNavigate } from "react-router-dom";
+import loading from '../assets/loading.png'
 
 export default function Home({ sort = 0, getFavorites = false }) {
   const [gamesArray, setGamesArray] = useState([]);
@@ -63,11 +64,17 @@ export default function Home({ sort = 0, getFavorites = false }) {
             <div className="w-[90%] h-full space-y-10">
               <PageTitle title={getFavorites ? "Favorites" : (sort === 0 ? "Trending games" : sort === 1 ? "News" : "Most commented")} />
               <div className="flex flex-wrap space-y-5">
-                {getFavorites ? favorites.map((game) => (
+                {
+                getFavorites ? favorites.map((game) => (
                   <Game key={game.key} game={game} />
-                )) : gamesArray.map((game) => (
-                  <Game key={game.key} game={game} />
-                ))}
+                )) : gamesArray.length > 0 ?
+                  gamesArray.map((game) => (
+                    <Game key={game.key} game={game} />
+                  )) : 
+                  <div className="w-full min-h-[40vh] flex justify-center items-center text-6xl text-white">
+                    <img className="bg-transparent animate-spin w-28 invert" src={loading} alt="" />
+                  </div>
+                }
               </div>
             </div>
           </div>

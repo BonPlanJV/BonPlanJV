@@ -18,7 +18,7 @@ const Game = ({ game }) => {
   }, [game.key]);
 
   return (
-    <Link
+    game && <Link
       to={`/games/${game.key}`}
       key={game.key}
       className="bg-neutral-900 w-full rounded-xl p-5 flex justify-between text-white"

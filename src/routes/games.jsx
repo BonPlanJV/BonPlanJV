@@ -14,6 +14,7 @@ import defaultGamePicture from "../assets/defaultGamePicture.jpg"
 import PromoCopy from "../components/PromoCopy";
 import { useNotification } from "../core/notificationContext";
 import FavoriteStar from "../components/FavoriteStar.jsx";
+import loading from '../assets/loading.png'
 
 export default function Games() {
   const { key } = useParams();
@@ -118,7 +119,7 @@ export default function Games() {
 
   return (
     <main className="text-center mx-auto text-gray-700 p-4 bg-neutral-800 h-full w-full text-white">
-      {game && (
+      {game ? (
         <>
           <div
             id="game"
@@ -172,7 +173,7 @@ export default function Games() {
                           -
                           {Math.round(
                             ((game?.prixInit - game?.prix) / game?.prixInit) *
-                              100
+                            100
                           )}
                           %
                         </h3>
@@ -276,7 +277,11 @@ export default function Games() {
               ))}
           </div>
         </>
-      )}
+      ) :
+        <div className="w-full h-screen flex justify-center items-center text-6xl text-white">
+          <img className="bg-transparent animate-spin w-28 invert" src={loading} alt="" />
+        </div>
+      }
     </main>
   );
 }
