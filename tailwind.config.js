@@ -2,42 +2,39 @@
 export default {
   content: [
     "./src/**/*.{html,js,jsx,ts,tsx}",
-    'node_modules/preline/dist/*.js'
+    "node_modules/preline/dist/*.js",
   ],
   theme: {
-    extend: { 
+    extend: {
       backgroundImage: {
-        'privacy-bg': "url('/public/icon-privacy.svg')"
+        "privacy-bg": "url('/public/icon-privacy.svg')",
       },
       animation: {
-        'notification': 'notification 3s ease-in-out infinite',
+        notification: "notification 3s ease-in-out infinite",
       },
       keyframes: {
         notification: {
-          '0%, 100%': { 
-            transform: 'translateX(0px)',
-            opacity: '0'
+          "0%, 100%": {
+            transform: "translateX(0px)",
+            opacity: "0",
           },
-          '50%': { 
-            transform: 'translateX(-20px)',
+          "50%": {
+            transform: "translateX(-20px)",
           },
-          '100%': { 
-            opacity: '1'
+          "100%": {
+            opacity: "1",
           },
         },
         selection: {
-          '0%, 100%': { 
-            opacity: '0'
+          "0%, 100%": {
+            opacity: "0",
           },
-          '100%': { 
-            opacity: '1'
+          "100%": {
+            opacity: "1",
           },
-        }
-      }
-    }
+        },
+      },
+    },
   },
-  plugins: [
-    require('preline/plugin')
-  ],
-}
-
+  plugins: [require("preline/plugin")],
+};

@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-const PageTitle = ({title}) => {
+const PageTitle = ({ title }) => {
   return (
     <div className="w-full bg-neutral-800 flex justify-between items-center">
       <h1 className="text-4xl text-white text-start">
@@ -14,6 +14,6 @@ const PageTitle = ({title}) => {
       </Link>
     </div>
   );
-}
+};
 
 export default PageTitle;

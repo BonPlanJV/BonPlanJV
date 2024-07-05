@@ -10,11 +10,11 @@ import ScoreButton from "../components/ScoreButton";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import defaultPP from "../assets/defaultProfile.webp";
-import defaultGamePicture from "../assets/defaultGamePicture.jpg"
+import defaultGamePicture from "../assets/defaultGamePicture.jpg";
 import PromoCopy from "../components/PromoCopy";
 import { useNotification } from "../core/notificationContext";
 import FavoriteStar from "../components/FavoriteStar.jsx";
-import loading from '../assets/loading.png'
+import loading from "../assets/loading.png";
 
 export default function Games() {
   const { key } = useParams();
@@ -27,12 +27,14 @@ export default function Games() {
   useEffect(() => {
     readData(`games/${key}`).then(async (game) => {
       const user = await getUserByID(game?.auteur);
-      const tags = game.tags ? await Promise.all(
-        game.tags.map(async (tagID) => {
-          const tag = await getTagByID(tagID);
-          return tag;
-        })
-      ) : null;
+      const tags = game.tags
+        ? await Promise.all(
+            game.tags.map(async (tagID) => {
+              const tag = await getTagByID(tagID);
+              return tag;
+            }),
+          )
+        : null;
 
       setGame({ ...game, auteur: user, tags: tags, key: key });
       document.title = "BonPlanJV - " + game?.titre;
@@ -46,7 +48,7 @@ export default function Games() {
             const comment = commentEntries[1];
             const user = await getUserByID(comment.auteur);
             return { ...comment, auteur: user, key: key };
-          })
+          }),
         ).then((commentsWithKey) => {
           commentsWithKey.sort((a, b) => new Date(b.date) - new Date(a.date));
           setComments(commentsWithKey);
@@ -118,7 +120,7 @@ export default function Games() {
   }
 
   return (
-    <main className="text-center mx-auto text-gray-700 p-4 bg-neutral-800 h-full w-full text-white">
+    <main className="text-center mx-auto text-gray-700 p-4 bg-neutral-800 h-full w-full">
       {game ? (
         <>
           <div
@@ -173,7 +175,7 @@ export default function Games() {
                           -
                           {Math.round(
                             ((game?.prixInit - game?.prix) / game?.prixInit) *
-                            100
+                              100,
                           )}
                           %
                         </h3>
@@ -272,16 +274,22 @@ export default function Games() {
                       • {formatDate(comment.date)}
                     </span>
                   </p>
-                  <p className="text-gray-300 text-left whitespace-pre-wrap truncate">{comment.message}</p>
+                  <p className="text-gray-300 text-left whitespace-pre-wrap truncate">
+                    {comment.message}
+                  </p>
                 </div>
               ))}
           </div>
         </>
-      ) :
+      ) : (
         <div className="w-full h-screen flex justify-center items-center text-6xl text-white">
-          <img className="bg-transparent animate-spin w-28 invert" src={loading} alt="" />
+          <img
+            className="bg-transparent animate-spin w-28 invert"
+            src={loading}
+            alt=""
+          />
         </div>
-      }
+      )}
     </main>
   );
 }

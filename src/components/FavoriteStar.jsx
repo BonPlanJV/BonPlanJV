@@ -15,7 +15,7 @@ const FavoriteStar = ({ game }) => {
 
   useEffect(() => {
     getFavoriteByGameID(game.key, userID).then((favorite) =>
-      setIsFavorite(favorite)
+      setIsFavorite(favorite),
     );
   }, [game, userID]);
 
@@ -25,7 +25,12 @@ const FavoriteStar = ({ game }) => {
     if (userID === null) return navigate("/login");
     isFavorite ? deleteFavorite(game, userID) : createFavorite(game, userID);
     setIsFavorite(!isFavorite);
-    showNotification(isFavorite ? `${game.titre} removed from favorites` : `${game.titre} added to favorites`, isFavorite ? "error" : "success");
+    showNotification(
+      isFavorite
+        ? `${game.titre} removed from favorites`
+        : `${game.titre} added to favorites`,
+      isFavorite ? "error" : "success",
+    );
   };
 
   return (

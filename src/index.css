@@ -3,10 +3,10 @@
 @tailwind utilities;
 
 @font-face {
-    font-family: 'Montserrat';
-    src: url('./assets/Montserrat.ttf');
-  }
-  
+  font-family: "Montserrat";
+  src: url("./assets/Montserrat.ttf");
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -17,7 +17,7 @@ body {
 }
 
 .font-custom {
-  font-family: 'Montserrat';
+  font-family: "Montserrat";
 }
 
 .clip {
@@ -77,7 +77,7 @@ body {
 .highlights-container::after {
   background-color: rgba(38, 38, 38, 1);
   bottom: -1px;
-  clip-path: polygon(0 100%,100% 100%,0 0);
+  clip-path: polygon(0 100%, 100% 100%, 0 0);
   content: "";
   padding: 30px;
   position: absolute;
