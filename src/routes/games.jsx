@@ -120,7 +120,7 @@ export default function Games() {
   }
 
   return (
-    <main className="text-center mx-auto text-gray-700 p-4 bg-neutral-800 h-full w-full">
+    <main className="text-center mx-auto text-white p-4 bg-neutral-800 h-full w-full">
       {game ? (
         <>
           <div

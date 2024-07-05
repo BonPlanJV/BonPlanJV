@@ -83,7 +83,7 @@ export default function CreateDeal() {
   };
 
   return (
-    <main className="text-center mx-auto text-gray-700 bg-neutral-800 h-full w-full">
+    <main className="text-center mx-auto text-white bg-neutral-800 h-full w-full">
       <div className="w-full">
         <img className="absolute z-1 h-full w-full bg-center bg-cover" alt="" />
         <div className="absolute h-screen w-full">
