@@ -182,13 +182,19 @@ export default function Games() {
                       </>
                     )}
                   </div>
-                  <button
+                  <a
                     className="bg-orange-500 hover:bg-orange-600 text-white rounded-full px-4 py-2 transition-colors duration-200"
-                    onClick={() => (window.location.href = game?.link)}
+                    href={game.lien}
+                    onClick={(event) => {
+                      event.stopPropagation();
+                      event.preventDefault();
+                      window.location.replace(game.lien);
+                    }}
+                    target="_blank"
                   >
                     Open offer
-                    <i className="fa-solid fa-arrow-up-right-from-square ml-3"></i>
-                  </button>
+                    <i className="fa-solid fa-arrow-up-right-from-square ml-2"></i>
+                  </a>
                   <PromoCopy game={game} />
                   <div className="flex space-x-2 py-2 items-center text-gray-300">
                     <img
