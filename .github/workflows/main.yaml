@@ -19,3 +19,16 @@ jobs:
       - run: npm run lint
         env:
           CI: true
+  test:
+    permissions: write-all
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 19
+          cache: "npm"
+      - run: npm test
+        env:
+         CI: true
+  
