@@ -1,4 +1,4 @@
-name: Eslint check
+name: Tests Jobs
 on:
   push:
     branches:
@@ -6,7 +6,7 @@ on:
   pull_request:
 
 jobs:
-  lint:
+  linter:
     permissions: write-all
     runs-on: ubuntu-latest
     steps:
@@ -20,7 +20,7 @@ jobs:
         env:
           CI: true
 
-  test:
+  unit-testing:
     environment: test
     permissions: write-all
     runs-on: ubuntu-latest
