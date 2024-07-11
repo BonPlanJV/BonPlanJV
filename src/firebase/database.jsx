@@ -22,6 +22,7 @@ export const readData = async (path) => {
     })
     .catch((error) => {
       console.error(error);
+      return 0
     });
 };
 

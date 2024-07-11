@@ -183,7 +183,7 @@ export default function Games() {
                     )}
                   </div>
                   <a
-                    className="bg-orange-500 hover:bg-orange-600 text-white rounded-full px-4 py-2 transition-colors duration-200"
+                    className="bg-orange-500 hover:bg-orange-600 text-white rounded-full text-center px-4 py-2 transition-colors duration-200"
                     href={game.lien}
                     onClick={(event) => {
                       event.stopPropagation();

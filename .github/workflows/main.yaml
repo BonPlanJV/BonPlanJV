@@ -19,7 +19,9 @@ jobs:
       - run: npm run lint
         env:
           CI: true
+
   test:
+    environment: test
     permissions: write-all
     runs-on: ubuntu-latest
     steps:
@@ -28,7 +30,15 @@ jobs:
         with:
           node-version: 19
           cache: "npm"
+      - run: npm ci
+      - run: npm i vitest
       - run: npm test
         env:
-         CI: true
-  
+          VITE_FIREBASE_APIKEY: ${{ secrets.VITE_FIREBASE_APIKEY }}
+          VITE_FIREBASE_AUTHDOMAIN: ${{ secrets.VITE_FIREBASE_AUTHDOMAIN }}
+          VITE_FIREBASE_PROJECTID: ${{ secrets.VITE_FIREBASE_PROJECTID }}
+          VITE_FIREBASE_STORAGEBUCKET: ${{ secrets.VITE_FIREBASE_STORAGEBUCKET }}
+          VITE_FIREBASE_MESSAGINGSENDERID: ${{ secrets.VITE_FIREBASE_MESSAGINGSENDERID }}
+          VITE_FIREBASE_APPID: ${{ secrets.VITE_FIREBASE_APPID }}
+          VITE_FIREBASE_MEASUREMENTID: ${{ secrets.VITE_FIREBASE_MEASUREMENTID }}
+      - run: npm remove vitest
