@@ -13,7 +13,6 @@ Check out the live application [here](https://bonplanjv.netlify.app).
 - [Technologies](#technologies)
 - [Contributing](#contributing)
 - [License](#license)
-- [Contact](#contact)
 
 ## Features
 
